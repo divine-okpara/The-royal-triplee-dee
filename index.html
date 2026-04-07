@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royal Triple Dee College</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500&family=EB+Garamond:ital@1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ============================================================
+     HEADER / NAV
+============================================================ -->
+<header id="siteHeader">
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.jpeg" alt="Royal Triple Dee Logo">
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="Primary.html">Primary</a></li>
+      <li><a href="Secondary.html">Secondary</a></li>
+      <li><a href="Gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="Result-Checker.html" class="contact-us-btn"><span>Result-Checker</span></a></li>
+    </ul>
+
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<!-- Mobile Sidebar -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">&#10005;</button>
+  <ul class="sidebar-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="Primary.html">Primary</a></li>
+    <li><a href="Secondary.html">Secondary</a></li>
+    <li><a href="Gallery.html">Gallery</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="Result-Checker.html" class="contact-us-btn sidebar-cta"><span>Result-Checker</span></a></li>
+  </ul>
+</aside>
+
+
+<!-- ============================================================
+     HERO SLIDER
+============================================================ -->
+<section id="rtd-hero">
+
+  <div class="rtd-track" id="rtdTrack">
+
+    <div class="rtd-slide">
+      <img src="ART.jpeg" alt="We Breed Future Leaders">
+      <div class="rtd-overlay"></div>
+      <div class="rtd-content" id="rtdText0">
+        <h1>WE BREED<br><span>FUTURE LEADERS</span></h1>
+      </div>
+    </div>
+
+    <div class="rtd-slide">
+      <img src="secondary nurse.jpeg" alt="Innovative Labs">
+      <div class="rtd-overlay"></div>
+      <div class="rtd-content" id="rtdText1">
+        <h1>INNOVATIVE<br><span>LABORATORIES</span></h1>
+      </div>
+    </div>
+
+    <div class="rtd-slide">
+      <img src="sportss.jpeg" alt="Sports and Competition">
+      <div class="rtd-overlay"></div>
+      <div class="rtd-content" id="rtdText2">
+        <h1>SPORTS &amp;<br><span>COMPETITION</span></h1>
+      </div>
+    </div>
+
+    <div class="rtd-slide">
+      <img src="CLASSROOM.jpeg" alt="Modern Classroom">
+      <div class="rtd-overlay"></div>
+      <div class="rtd-content" id="rtdText3">
+        <h1>MODERN<br><span>CLASSROOMS</span></h1>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="rtd-arrow rtd-prev" id="rtdPrev" aria-label="Previous">&#10094;</button>
+  <button class="rtd-arrow rtd-next" id="rtdNext" aria-label="Next">&#10095;</button>
+
+  <div class="rtd-dots">
+    <span class="rtd-dot on"  data-i="0"></span>
+    <span class="rtd-dot"     data-i="1"></span>
+    <span class="rtd-dot"     data-i="2"></span>
+    <span class="rtd-dot"     data-i="3"></span>
+  </div>
+
+</section>
+
+
+<!-- ============================================================
+     FEATURES SECTION — Why Choose Us
+============================================================ -->
+<section class="features-section">
+  <div class="section-header-block reveal">
+    <p class="section-label">Our Excellence</p>
+    <h2 class="section-title">Why Choose Us</h2>
+  </div>
+  <div class="container">
+
+    <div class="feature-card reveal">
+      <div class="photo-box">
+        <img src="CLASSROOM.jpeg" alt="Students learning">
+      </div>
+      <div class="card-content">
+        <h3>THREE DECADES OF EXCELLENCE</h3>
+        <p>We have been in the educational sector for over three decades and we have what it takes to make your children that great icon and hero you want them to be.</p>
+      </div>
+    </div>
+
+    <div class="feature-card reveal" style="transition-delay:0.12s">
+      <div class="photo-box">
+        <img src="teachers.jpeg" alt="Teachers">
+      </div>
+      <div class="card-content">
+        <h3>OUTSTANDING TEACHERS</h3>
+        <p>Our teachers are filled with passion for students that makes them goal-oriented. Our students take the lead in all external competitions and examinations.</p>
+      </div>
+    </div>
+
+    <div class="feature-card reveal" style="transition-delay:0.24s">
+      <div class="photo-box">
+        <img src="secondary nurse.jpeg" alt="Science Lab">
+      </div>
+      <div class="card-content">
+        <h3>WELL EQUIPPED LABORATORIES</h3>
+        <p>We have well-equipped laboratories that are regularly monitored by professionals. Choose your best place to learn and grow with us.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     DIRECTOR SECTION
+============================================================ -->
+<section class="director-section">
+  <div class="director-container">
+
+    <div class="director-image reveal-left">
+      <img src="Dr mrs lawal.jpeg" alt="The Director">
+    </div>
+
+    <div class="director-text reveal-right">
+      <h2>The Director</h2>
+      <div class="gold-line"></div>
+      <p>I am delighted to welcome and appreciate you for checking up on us.</p>
+      <p>We are a reputable godly citadel of learning with an experienced team of godly professionals who dedicate their time in shaping our precious jewels in all areas of learning and morals.</p>
+      <p>We operate a "together everyone achieves" approach and this affords a caring friendly environment for learning and healthy development for our precious jewels.</p>
+      <p>Working in partnership with our parents is crucial as their role is irreplaceable in ensuring our children feel loved, happy, safe, valued and equipped to achieve their full potential.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     VISION / MISSION SECTION
+============================================================ -->
+<section class="features-section" style="background: var(--ash);">
+  <div class="section-header-block reveal">
+    <h2 class="section-title">Feel Free To Look Around</h2>
+  </div>
+  <div class="features-grid">
+
+    <div class="feature-card reveal">
+      <div class="card-image">
+        <img src="nursery.jpeg" alt="Our Vision">
+      </div>
+      <div class="card-content">
+        <h3>Our Vision</h3>
+        <p>To inculcate the fear of God in our students; equip them for leadership roles that will influence social change.</p>
+      </div>
+    </div>
+
+    <div class="feature-card reveal" style="transition-delay:0.1s">
+      <div class="card-image">
+        <img src="leaders.jpeg" alt="Our Mission">
+      </div>
+      <div class="card-content">
+        <h3>Our Mission</h3>
+        <p>Raising Godly Leaders who will achieve a consistent record of Academic &amp; Moral Excellence.</p>
+      </div>
+    </div>
+
+    <div class="feature-card reveal" style="transition-delay:0.2s">
+      <div class="card-image">
+        <img src="our missin.jpeg" alt="Our Teachers">
+      </div>
+      <div class="card-content">
+        <h3>Our Teachers</h3>
+        <p>Our teachers range from all forms of educational qualifications, N.C.E, B.ED, H.N.D, M.ED etc. Teachers in Triplee Dee are a sure bet for success.</p>
+      </div>
+    </div>
+
+    <div class="feature-card reveal" style="transition-delay:0.3s">
+      <div class="card-image">
+        <img src="curriculum.jpeg" alt="Our Curriculum">
+      </div>
+      <div class="card-content">
+        <h3>Our Curriculum</h3>
+        <p>The school runs the Nigerian and British curriculum divided into the Junior and Senior Secondary segments.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     DEPARTMENTS SECTION
+============================================================ -->
+<section class="departments-section">
+  <div class="dept-header reveal">
+    <h2 class="dept-title">Departments</h2>
+    <div class="dept-rule"></div>
+    <p class="dept-subtitle">Shaping future leaders across every discipline — from science to the arts.</p>
+  </div>
+  <div class="dept-grid">
+
+    <div class="dept-card reveal">
+      <div class="dept-img-wrap">
+        <img src="secondary nurse.jpeg" alt="Science Department">
+      </div>
+      <div class="dept-body">
+        <h3>Science</h3>
+        <p>We equip students with practical lab skills and critical thinking. Our science department prepares students for excellence in all science-related fields.</p>
+      </div>
+    </div>
+
+    <div class="dept-card reveal" style="transition-delay:0.15s">
+      <div class="dept-img-wrap">
+        <img src="music.jpeg" alt="Art Department">
+      </div>
+      <div class="dept-body">
+        <h3>Art</h3>
+        <p>Creativity is nurtured here. Arts in education is an expanding field informed by investigations into learning through rich arts experiences.</p>
+      </div>
+    </div>
+
+    <div class="dept-card reveal" style="transition-delay:0.28s">
+      <div class="dept-img-wrap">
+        <img src="commercial.jpeg" alt="Commercial Department">
+      </div>
+      <div class="dept-body">
+        <h3>Commercial</h3>
+        <p>Commerce is a flexible program for anyone interested in accounting, financial management, banking or business analytics.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     TESTIMONIALS SECTION
+============================================================ -->
+<section class="testimonials-section">
+  <h1 class="section-title">Testimonials</h1>
+
+  <div class="testimonial-track-wrapper">
+    <button class="testimonial-prev" id="testPrev" aria-label="Previous">&#10094;</button>
+    <div class="testimonial-track" id="testTrack">
+
+      <div class="testimonial-card">
+        <div class="profile-circle">
+          <img src="headboy.jpeg" alt="Okpara-Divine">
+        </div>
+        <p class="testimonial-text">Leading this school has been an honor — one that shaped my discipline, leadership, and vision for the future.</p>
+        <h3 class="author-name">Okpara-Divine</h3>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="profile-circle">
+          <img src="teacher2.jpg" alt="Zainab-Adeyemi">
+        </div>
+        <p class="testimonial-text">The environment here pushes you to grow, not just academically but as a person.</p>
+        <h3 class="author-name">Zainab-Adeyemi</h3>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="profile-circle">
+          <img src="teacher3.jpg" alt="Mariam-Thomas">
+        </div>
+        <p class="testimonial-text">I found support, friendship, and the motivation to become better every day.</p>
+        <h3 class="author-name">Mariam-Thomas</h3>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="profile-circle">
+          <img src="mirror.jpeg" alt="Hassan-Daramola">
+        </div>
+        <p class="testimonial-text">I highly recommend this school for its focus on character building and academic excellence. The teachers are very approachable.</p>
+        <h3 class="author-name">Hassan-Daramola</h3>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="profile-circle">
+          <img src="orji adekola.jpeg" alt="Orji-Adekola">
+        </div>
+        <p class="testimonial-text">The extra-curricular activities combined with the solid educational foundation make this the perfect choice for our family.</p>
+        <h3 class="author-name">Orji-Adekola</h3>
+      </div>
+
+    </div>
+    <button class="testimonial-next" id="testNext" aria-label="Next">&#10095;</button>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     GALLERY SECTION
+============================================================ -->
+<section class="gallery-section" id="gallery">
+  <h2 class="gallery-title">Education Gallery</h2>
+  <div class="gallery-grid">
+
+    <div class="gallery-item reveal" onclick="openLightbox(0)">
+      <img src="curiosity in action.jpeg" alt="Curiosity in Action">
+      <div class="caption">Curiosity in Action</div>
+    </div>
+    <div class="gallery-item reveal" style="transition-delay:0.1s" onclick="openLightbox(1)">
+      <img src="ART.jpeg" alt="Exploring Art">
+      <div class="caption">Exploring Art</div>
+    </div>
+    <div class="gallery-item reveal" style="transition-delay:0.2s" onclick="openLightbox(2)">
+      <img src="music.jpeg" alt="School Music Program">
+      <div class="caption">School Music Program</div>
+    </div>
+    <div class="gallery-item reveal" style="transition-delay:0.1s" onclick="openLightbox(3)">
+      <img src="secondary nurse.jpeg" alt="Science Lab">
+      <div class="caption">Students in the Lab</div>
+    </div>
+    <div class="gallery-item reveal" style="transition-delay:0.2s" onclick="openLightbox(4)">
+      <img src="commercial.jpeg" alt="School Spelling Bee">
+      <div class="caption">School Spelling Bee Program</div>
+    </div>
+    <div class="gallery-item reveal" style="transition-delay:0.3s" onclick="openLightbox(5)">
+      <img src="interhouse.jpeg" alt="Interhouse Sports">
+      <div class="caption">Interhouse Sports</div>
+    </div>
+    <div class="gallery-item reveal" style="transition-delay:0.15s" onclick="openLightbox(6)">
+      <img src="cultural day.jpeg" alt="Cultural Day">
+      <div class="caption">Cultural Day</div>
+    </div>
+    <div class="gallery-item reveal" style="transition-delay:0.25s" onclick="openLightbox(7)">
+      <img src="future .jpeg" alt="Graduates">
+      <div class="caption">Graduates</div>
+    </div>
+
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox-modal">
+    <button class="close-btn" onclick="closeLightbox()">&times;</button>
+    <img class="lightbox-content" id="full-image" src="" alt="">
+    <div id="caption-lb"></div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CONTACT SECTION
+============================================================ -->
+<section class="contact-section" id="contact-main">
+  <div class="contact-container">
+
+    <div class="map-box reveal-left">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.359624866262!2d3.8182648747660677!3d6.47605229351575!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103955ad4696f455%3A0x3df8185adebe0fad!2sRoyal%20Triple%20Dee%20secondary%20school!5e0!3m2!1sen!2sng!4v1774862373242!5m2!1sen!2sng"
+        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    <div class="form-box reveal-right">
+      <h1>Contact Us</h1>
+      <div class="form-row">
+        <input type="text"  id="userName"    placeholder="Your Name">
+        <input type="tel"   id="userPhone"   placeholder="Phone">
+      </div>
+      <input  type="email" id="userEmail"   placeholder="Email">
+      <textarea            id="userMessage" placeholder="Message" rows="5"></textarea>
+      <a id="whatsappBtn" class="send-btn" target="_blank"
+         href="https://wa.me/2348037159759"
+         style="display:block; text-align:center; text-decoration:none;">
+        <span>SEND MESSAGE</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="main-footer" id="footer-main">
+  <div class="footer-container">
+
+    <div class="footer-col logo-col reveal">
+      <img src="logo.jpeg" alt="School Logo" class="footer-logo">
+      <p class="faith-text">Faith in God</p>
+    </div>
+
+    <div class="footer-col reveal" style="transition-delay:0.1s">
+      <h3>Address</h3>
+      <div class="gold-rule"></div>
+      <p><strong>Main Location</strong><br>3, Triplee Dee Close, Omolola Lawal Street, Ibeju-Lekki, 105101, Lagos</p>
+      <p><strong>Lekki Office</strong><br>13, Triplee Dee Close</p>
+    </div>
+
+    <div class="footer-col reveal" style="transition-delay:0.2s">
+      <h3>Reach Out To Us</h3>
+      <div class="gold-rule"></div>
+      <p><strong>Nigeria Office</strong><br>Postal Code: 105101<br>Tel: +2348035239338<br>E-mail: royaltripledee@yahoo.com</p>
+      <p><strong>Lekki Office</strong><br>Tel: +2349019733420</p>
+    </div>
+
+    <div class="footer-col reveal" style="transition-delay:0.3s">
+      <h3>Quick Links</h3>
+      <div class="gold-rule"></div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Primary.html">About Us</a></li>
+        <li><a href="Gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; Copyright 2026 Royal Triple Dee College — All Rights Reserved.</p>
+    <p>Designed by <span class="designer">Divine Kelechukwu Okpara</span> —
+      <a href="https://wa.me/2349019733420" class="social-link">WhatsApp</a> |
+      <a href="https://twitter.com/DivOkpara"  class="social-link">Twitter</a>
+    </p>
+  </div>
+</footer>
+
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+
+/* ── 1. NAVBAR scroll ── */
+(function () {
+  var hdr = document.getElementById('siteHeader');
+  window.addEventListener('scroll', function () {
+    hdr.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+})();
+
+
+/* ── 2. MOBILE SIDEBAR ── */
+(function () {
+  var hamburger = document.getElementById('hamburgerBtn');
+  var sidebar   = document.getElementById('sidebar');
+  var overlay   = document.getElementById('sidebarOverlay');
+  var closeBtn  = document.getElementById('sidebarClose');
+
+  function openSidebar()  { sidebar.classList.add('open'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
+
+  hamburger.addEventListener('click', openSidebar);
+  closeBtn.addEventListener('click', closeSidebar);
+  overlay.addEventListener('click', closeSidebar);
+  document.querySelectorAll('.sidebar-links a').forEach(function (l) { l.addEventListener('click', closeSidebar); });
+})();
+
+
+/* ── 3. RTD HERO SLIDER ── */
+(function () {
+  var track    = document.getElementById('rtdTrack');
+  var contents = document.querySelectorAll('#rtd-hero .rtd-content');
+  var dots     = document.querySelectorAll('#rtd-hero .rtd-dot');
+  var prevBtn  = document.getElementById('rtdPrev');
+  var nextBtn  = document.getElementById('rtdNext');
+  var hero     = document.getElementById('rtd-hero');
+
+  var TOTAL = contents.length;
+  var cur   = 0;
+  var busy  = false;
+  var timer = null;
+
+  function goTo(next) {
+    if (busy) return;
+    next = (next + TOTAL) % TOTAL;
+    if (next === cur) return;
+    busy = true;
+    contents[cur].classList.remove('show');
+    dots[cur].classList.remove('on');
+    cur = next;
+    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    setTimeout(function () {
+      contents[cur].classList.add('show');
+      dots[cur].classList.add('on');
+      busy = false;
+    }, 520);
+  }
+
+  function startAuto() { clearInterval(timer); timer = setInterval(function () { goTo(cur + 1); }, 5000); }
+  function stopAuto()  { clearInterval(timer); }
+
+  prevBtn.addEventListener('click', function () { goTo(cur - 1); startAuto(); });
+  nextBtn.addEventListener('click', function () { goTo(cur + 1); startAuto(); });
+  dots.forEach(function (d) { d.addEventListener('click', function () { goTo(parseInt(d.dataset.i, 10)); startAuto(); }); });
+
+  hero.addEventListener('mouseenter', stopAuto);
+  hero.addEventListener('mouseleave', startAuto);
+
+  var tx = 0;
+  hero.addEventListener('touchstart', function (e) { tx = e.changedTouches[0].clientX; stopAuto(); }, { passive: true });
+  hero.addEventListener('touchend',   function (e) { var d = tx - e.changedTouches[0].clientX; if (Math.abs(d) > 50) goTo(d > 0 ? cur + 1 : cur - 1); startAuto(); }, { passive: true });
+
+  track.style.transform = 'translateX(0%)';
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      contents[0].classList.add('show');
+      dots[0].classList.add('on');
+      startAuto();
+    });
+  });
+})();
+
+
+/* ── 4. TESTIMONIAL SLIDER ── */
+(function () {
+  var track   = document.getElementById('testTrack');
+  var prevBtn = document.getElementById('testPrev');
+  var nextBtn = document.getElementById('testNext');
+  if (!track) return;
+
+  var cards   = track.querySelectorAll('.testimonial-card');
+  var total   = cards.length;
+  var cur     = 0;
+
+  function getVisible() { return window.innerWidth <= 640 ? 1 : window.innerWidth <= 1024 ? 2 : 3; }
+
+  function goTo(n) {
+    var max = total - getVisible();
+    cur = Math.max(0, Math.min(n, max));
+    var cardW = cards[0].offsetWidth + 24;
+    track.style.transform = 'translateX(-' + (cur * cardW) + 'px)';
+  }
+
+  prevBtn.addEventListener('click', function () { goTo(cur - 1); });
+  nextBtn.addEventListener('click', function () { goTo(cur + 1); });
+  window.addEventListener('resize', function () { goTo(cur); });
+})();
+
+
+/* ── 5. LIGHTBOX ── */
+var lightboxImages = [
+  { src: 'curiosity in action.jpeg', alt: 'Curiosity in Action' },
+  { src: 'ART.jpeg',                 alt: 'Exploring Art' },
+  { src: 'music.jpeg',               alt: 'School Music Program' },
+  { src: 'secondary nurse.jpeg',     alt: 'Students in the Lab' },
+  { src: 'commercial.jpeg',          alt: 'School Spelling Bee Program' },
+  { src: 'interhouse.jpeg',          alt: 'Interhouse Sports' },
+  { src: 'cultural day.jpeg',        alt: 'Cultural Day' },
+  { src: 'future .jpeg',             alt: 'Graduates' }
+];
+
+function openLightbox(index) {
+  var modal = document.getElementById('lightbox');
+  var img   = document.getElementById('full-image');
+  var cap   = document.getElementById('caption-lb');
+  img.src  = lightboxImages[index].src;
+  img.alt  = lightboxImages[index].alt;
+  cap.textContent = lightboxImages[index].alt;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+
+
+/* ── 6. WHATSAPP CONTACT FORM ── */
+(function () {
+  function updateLink() {
+    var name    = (document.getElementById('userName').value    || '').trim();
+    var phone   = (document.getElementById('userPhone').value   || '').trim();
+    var email   = (document.getElementById('userEmail').value   || '').trim();
+    var message = (document.getElementById('userMessage').value || '').trim();
+    var text =
+      'Hello Royal Triple Dee \n\n' +
+      'Name: '    + (name    || 'Not provided') + '\n' +
+      'Phone: '   + (phone   || 'Not provided') + '\n' +
+      'Email: '   + (email   || 'Not provided') + '\n\n' +
+      'Message:\n' + (message || '(no message)');
+    document.getElementById('whatsappBtn').href =
+      'https://wa.me/2348037159759?text=' + encodeURIComponent(text);
+  }
+  ['userName','userPhone','userEmail','userMessage'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', updateLink);
+  });
+  document.getElementById('whatsappBtn').addEventListener('click', function (e) {
+    var name    = (document.getElementById('userName').value    || '').trim();
+    var message = (document.getElementById('userMessage').value || '').trim();
+    if (!name || !message) { e.preventDefault(); alert('Please fill in at least your Name and Message.'); return; }
+    updateLink();
+  });
+})();
+
+
+/* ── 7. SCROLL REVEAL ── */
+(function () {
+  var targets = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  if (!targets.length) return;
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  targets.forEach(function (el) { observer.observe(el); });
+})();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery | Royal Triple Dee College</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500&family=EB+Garamond:ital@1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    /* ── GALLERY HERO ── */
+    .gallery-hero {
+      margin-top: 72px;
+      height: 300px;
+      background: var(--forest);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .gallery-hero-text {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 1.5rem;
+    }
+    .gallery-hero-text .eyebrow {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .gallery-hero-text h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.15;
+      margin: 0;
+    }
+    .gallery-hero-text h1 em {
+      color: var(--gold);
+      font-style: italic;
+    }
+    .gallery-hero-text p {
+      margin-top: 0.9rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.01em;
+      max-width: 380px;
+    }
+
+    /* ── FILTER BAR ── */
+    .gal-filter-bar {
+      background: #fff;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+      position: sticky;
+      top: 72px;
+      z-index: 200;
+    }
+    .gal-filter-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      height: 58px;
+    }
+    .gf-tab {
+      padding: 0.38rem 1.3rem;
+      border-radius: 2px;
+      border: 1.5px solid rgba(4,34,17,0.18);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      white-space: nowrap;
+      background: transparent;
+      color: #555;
+      transition: all 0.22s ease;
+    }
+    .gf-tab:hover {
+      border-color: var(--forest);
+      color: var(--forest);
+    }
+    .gf-tab.active {
+      background: var(--forest);
+      border-color: var(--forest);
+      color: var(--gold);
+    }
+    .gf-divider {
+      width: 1px;
+      height: 20px;
+      background: rgba(0,0,0,0.1);
+      margin: 0 0.25rem;
+    }
+
+    /* ── GALLERY BODY ── */
+    .gallery-body {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 6rem;
+    }
+
+    /* ── SECTION HEADER ── */
+    .gal-section {
+      margin-bottom: 4rem;
+    }
+    .gal-section.hidden { display: none; }
+
+    .gal-section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(212,175,55,0.3);
+    }
+    .gal-section-head h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--forest);
+      margin: 0;
+    }
+    .gal-section-head h2 em {
+      color: var(--gold);
+      font-style: italic;
+    }
+    .gal-section-head .count {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      color: #aaa;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      margin-left: auto;
+    }
+
+    /* ── PHOTO GRIDS ── */
+
+    /* Default masonry-style 4-col */
+    .gal-grid {
+      display: grid;
+      gap: 6px;
+    }
+
+    /* Arts — editorial 3-col with one tall */
+    .gal-grid.arts {
+      grid-template-columns: 1.4fr 1fr 1fr;
+      grid-template-rows: 260px 220px;
+    }
+    .gal-grid.arts .gp:first-child {
+      grid-row: span 2;
+    }
+
+    /* Science — clean 4-col equal */
+    .gal-grid.science {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 240px;
+    }
+
+    /* Graduation — hero left + 2×2 right */
+    .gal-grid.graduation {
+      grid-template-columns: 1.6fr 1fr 1fr;
+      grid-template-rows: 250px 200px;
+    }
+    .gal-grid.graduation .gp:first-child {
+      grid-row: span 2;
+    }
+
+    /* Teachers — 2-col tall portraits */
+    .gal-grid.teachers {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 280px;
+    }
+
+    /* Sports — wide hero + supporting */
+    .gal-grid.sports {
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 260px 220px;
+    }
+    .gal-grid.sports .gp:first-child {
+      grid-column: span 2;
+    }
+
+    /* ── PHOTO ITEM ── */
+    .gp {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background: #d6d0c8;
+    }
+    .gp img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .gp:hover img {
+      transform: scale(1.04);
+    }
+
+    /* Caption reveals on hover */
+    .gp-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.4rem 1rem 0.85rem;
+      background: linear-gradient(to top, rgba(4,34,17,0.88) 0%, transparent 100%);
+      transform: translateY(100%);
+      transition: transform 0.38s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .gp:hover .gp-caption {
+      transform: translateY(0);
+    }
+    .gp-caption-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.3;
+    }
+    .gp-caption-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 0.15rem;
+    }
+
+    /* ── LIGHTBOX ── */
+    .glb {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: rgba(3,20,10,0.97);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .glb.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .glb-inner {
+      position: relative;
+      width: 90%;
+      max-width: 880px;
+      text-align: center;
+      transform: translateY(18px);
+      transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .glb.open .glb-inner {
+      transform: translateY(0);
+    }
+    .glb-img-wrap {
+      width: 100%;
+      height: 520px;
+      overflow: hidden;
+      background: #111;
+      margin-bottom: 1.25rem;
+    }
+    .glb-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .glb-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .glb-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 0.25rem;
+    }
+    .glb-close {
+      position: absolute;
+      top: -2.5rem;
+      right: 0;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.55);
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: color 0.2s, transform 0.25s;
+      line-height: 1;
+    }
+    .glb-close:hover { color: var(--gold); transform: rotate(90deg); }
+    .glb-nav {
+      position: absolute;
+      top: 45%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.22s, color 0.22s;
+    }
+    .glb-nav:hover { background: var(--gold); color: var(--forest); border-color: var(--gold); }
+    .glb-prev { left: -3.5rem; }
+    .glb-next { right: -3.5rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .gal-grid.arts,
+      .gal-grid.graduation {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .gal-grid.arts .gp:first-child,
+      .gal-grid.graduation .gp:first-child {
+        grid-column: span 2;
+        grid-row: span 1;
+        height: 240px;
+      }
+      .gal-grid.sports {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .gal-grid.sports .gp:first-child {
+        grid-column: span 2;
+        height: 240px;
+      }
+      .gal-grid.science,
+      .gal-grid.teachers {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .gp { height: 210px; }
+    }
+    @media (max-width: 600px) {
+      .gallery-hero { height: 240px; }
+      .gal-filter-inner { overflow-x: auto; padding: 0 1rem; }
+      .gallery-body { padding: 2rem 1rem 4rem; }
+      .gal-grid.arts,
+      .gal-grid.graduation,
+      .gal-grid.science,
+      .gal-grid.teachers,
+      .gal-grid.sports {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .gal-grid .gp:first-child {
+        grid-column: span 2;
+        grid-row: span 1;
+      }
+      .gp { height: 180px; }
+      .glb-img-wrap { height: 260px; }
+      .glb-prev { left: -0.8rem; }
+      .glb-next { right: -0.8rem; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<header id="siteHeader">
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.jpeg" alt="Royal Triple Dee Logo">
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="Primary.html">Primary</a></li>
+      <li><a href="Secondary.html">Secondary</a></li>
+      <li><a href="Gallery.html" class="active-link">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+<li><a href="Result-Checker.html" class="contact-us-btn"><span>Result-Checker</span></a></li>   
+    </ul>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">&#10005;</button>
+  <ul class="sidebar-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="Primary.html">Primary</a></li>
+    <li><a href="Secondary.html">Secondary</a></li>
+    <li><a href="Gallery.html">Gallery</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="Result-Checker.html" class="contact-us-btn sidebar-cta"><span>Result-Checker</span></a></li>
+  </ul>
+</aside>
+
+
+<!-- ─── HERO ─── -->
+<section class="gallery-hero">
+  <div class="gallery-hero-text reveal">
+    <span class="eyebrow">Royal Triple Dee College</span>
+    <h1>Life in <em>Our School</em></h1>
+    <p>Moments from classrooms, fields, stages, and ceremonies.</p>
+  </div>
+</section>
+
+
+<!-- ─── FILTER BAR ─── -->
+<div class="gal-filter-bar">
+  <div class="gal-filter-inner">
+    <button class="gf-tab active" data-filter="all">All Photos</button>
+    <div class="gf-divider"></div>
+    <button class="gf-tab" data-filter="primary">Primary</button>
+    <button class="gf-tab" data-filter="secondary">Secondary</button>
+  </div>
+</div>
+
+
+<!-- ─── GALLERY BODY ─── -->
+<main class="gallery-body">
+
+  <!-- 1. ART & CULTURE -->
+  <div class="gal-section reveal" data-section="art">
+    <div class="gal-section-head">
+      <h2>Art <em>&amp; Culture</em></h2>
+      <span class="count">5 photos</span>
+    </div>
+    <div class="gal-grid arts">
+
+      <div class="gp" data-title="Cultural Day Display" data-sub="Art Department" data-division="primary">
+        <img src="cultural day.jpeg" alt="Cultural Day Display">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Cultural Day Display</div>
+          <div class="gp-caption-sub">Art Department</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="Exploring Art" data-sub="Creative Arts" data-division="primary">
+        <img src="ART.jpeg" alt="Exploring Art">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Exploring Art</div>
+          <div class="gp-caption-sub">Creative Arts</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="Inter-House Cultural Parade" data-sub="Cultural Week" data-division="secondary">
+        <img src="interhouse.jpeg" alt="Inter-House Cultural Parade">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Inter-House Cultural Parade</div>
+          <div class="gp-caption-sub">Cultural Week</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="School Music Programme" data-sub="Music Department" data-division="primary">
+        <img src="music.jpeg" alt="School Music Programme">
+        <div class="gp-caption">
+          <div class="gp-caption-title">School Music Programme</div>
+          <div class="gp-caption-sub">Music Department</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="Curiosity in Action" data-sub="Creative Learning" data-division="secondary">
+        <img src="curiosity in action.jpeg" alt="Curiosity in Action">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Curiosity in Action</div>
+          <div class="gp-caption-sub">Creative Learning</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- 2. SCIENCE & INNOVATION -->
+  <div class="gal-section reveal" data-section="science">
+    <div class="gal-section-head">
+      <h2>Science <em>&amp; Innovation</em></h2>
+      <span class="count">4 photos</span>
+    </div>
+    <div class="gal-grid science">
+
+      <div class="gp" data-title="Students in the Lab" data-sub="Science Department" data-division="secondary">
+        <img src="secondary nurse.jpeg" alt="Students in the Lab">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Students in the Lab</div>
+          <div class="gp-caption-sub">Science Department</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="Curiosity in Action" data-sub="Primary Science" data-division="primary">
+        <img src="curiosity in action.jpeg" alt="Curiosity in Action">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Curiosity in Action</div>
+          <div class="gp-caption-sub">Primary Science</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="Modern Classrooms" data-sub="ICT Department" data-division="secondary">
+        <img src="CLASSROOM.jpeg" alt="Modern Classrooms">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Modern Classrooms</div>
+          <div class="gp-caption-sub">ICT Department</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="School Spelling Bee" data-sub="Academic Programme" data-division="primary">
+        <img src="commercial.jpeg" alt="School Spelling Bee">
+        <div class="gp-caption">
+          <div class="gp-caption-title">School Spelling Bee</div>
+          <div class="gp-caption-sub">Academic Programme</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- 3. GRADUATION -->
+  <div class="gal-section reveal" data-section="graduation">
+    <div class="gal-section-head">
+      <h2>Graduation <em>&amp; Prize Giving</em></h2>
+      <span class="count">5 photos</span>
+    </div>
+    <div class="gal-grid graduation">
+
+      <div class="gp" data-title="Graduation Day 2023" data-sub="Primary Division" data-division="primary">
+        <img src="future .jpeg" alt="Graduation Day 2023">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Graduation Day 2023</div>
+          <div class="gp-caption-sub">Primary Division</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="Cap &amp; Gown Ceremony" data-sub="Graduation Day 2023" data-division="primary">
+        <img src="hassan set 1.jpeg" alt="Cap and Gown Ceremony">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Cap &amp; Gown Ceremony</div>
+          <div class="gp-caption-sub">Graduation Day 2023</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="Director's Award" data-sub="Excellence Recognition" data-division="secondary">
+        <img src="certificate of excellence.jpeg" alt="Director Award">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Director's Award</div>
+          <div class="gp-caption-sub">Excellence Recognition</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="Speech &amp; Prize Giving" data-sub="2023 Ceremony" data-division="secondary">
+        <img src="headboy.jpeg" alt="Speech and Prize Giving">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Speech &amp; Prize Giving</div>
+          <div class="gp-caption-sub">2023 Ceremony</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="Graduates" data-sub="Class of 2024" data-division="secondary">
+        <img src="hassan set 2.jpeg" alt="Graduates">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Graduates</div>
+          <div class="gp-caption-sub">Class of 2024</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- 4. TEACHERS & ACHIEVEMENTS -->
+  <div class="gal-section reveal" data-section="teachers">
+    <div class="gal-section-head">
+      <h2>Teachers <em>&amp; Achievements</em></h2>
+      <span class="count">4 photos</span>
+    </div>
+    <div class="gal-grid teachers">
+
+      <div class="gp" data-title="Outstanding Teachers" data-sub="Staff Recognition" data-division="secondary">
+        <img src="teachers.jpeg" alt="Outstanding Teachers">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Outstanding Teachers</div>
+          <div class="gp-caption-sub">Staff Recognition</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="Best Student Award" data-sub="Academic Excellence" data-division="secondary">
+        <img src="orji adekola.jpeg" alt="Best Student Award">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Best Student Award</div>
+          <div class="gp-caption-sub">Academic Excellence</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="Honours Day Ceremony" data-sub="Annual Awards" data-division="primary">
+        <img src="headboy.jpeg" alt="Honours Day Ceremony">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Honours Day Ceremony</div>
+          <div class="gp-caption-sub">Annual Awards</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="Nursery Learning" data-sub="Early Years" data-division="primary">
+        <img src="nursery.jpeg" alt="Nursery Learning">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Nursery Learning</div>
+          <div class="gp-caption-sub">Early Years</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- 5. SPORTS & ATHLETICS -->
+  <div class="gal-section reveal" data-section="sports">
+    <div class="gal-section-head">
+      <h2>Sports <em>&amp; Athletics</em></h2>
+      <span class="count">5 photos</span>
+    </div>
+    <div class="gal-grid sports">
+
+      <div class="gp" data-title="Interhouse Sports Day" data-sub="Athletics Day" data-division="primary">
+        <img src="interhouse.jpeg" alt="Interhouse Sports Day">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Interhouse Sports Day</div>
+          <div class="gp-caption-sub">Athletics Day</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="Sports &amp; Competition" data-sub="Secondary Division" data-division="secondary">
+        <img src="sportss.jpeg" alt="Sports and Competition">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Sports &amp; Competition</div>
+          <div class="gp-caption-sub">Secondary Division</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="Leadership in Sport" data-sub="Primary Division" data-division="primary">
+        <img src="leaders.jpeg" alt="Leadership in Sport">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Leadership in Sport</div>
+          <div class="gp-caption-sub">Primary Division</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="Team Spirit" data-sub="All Divisions" data-division="secondary">
+        <img src="sportss.jpeg" alt="Team Spirit">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Team Spirit</div>
+          <div class="gp-caption-sub">All Divisions</div>
+        </div>
+      </div>
+
+      <div class="gp" data-title="Interhouse Parade" data-sub="House Competition" data-division="secondary">
+        <img src="interhouse.jpeg" alt="Interhouse Parade">
+        <div class="gp-caption">
+          <div class="gp-caption-title">Interhouse Parade</div>
+          <div class="gp-caption-sub">House Competition</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+
+<!-- ─── LIGHTBOX ─── -->
+<div class="glb" id="glb">
+  <div class="glb-inner">
+    <button class="glb-close" id="glbClose">&#10005;</button>
+    <button class="glb-nav glb-prev" id="glbPrev">&#10094;</button>
+    <button class="glb-nav glb-next" id="glbNext">&#10095;</button>
+    <div class="glb-img-wrap">
+      <img id="glbImg" src="" alt="">
+    </div>
+    <div class="glb-title" id="glbTitle"></div>
+    <div class="glb-sub" id="glbSub"></div>
+  </div>
+</div>
+
+
+<!-- ─── FOOTER ─── -->
+<footer class="main-footer" id="footer-main">
+  <div class="footer-container">
+
+    <div class="footer-col logo-col reveal">
+      <img src="logo.jpeg" alt="School Logo" class="footer-logo">
+      <p class="faith-text">Faith in God</p>
+    </div>
+
+    <div class="footer-col reveal" style="transition-delay:0.1s">
+      <h3>Address</h3>
+      <div class="gold-rule"></div>
+      <p><strong>Main Location</strong>3, Triplee Dee Close, Omolola Lawal Street, Ibeju-Lekki, 105101, Lagos</p>
+      <p><strong>Lekki Office</strong>13, Triplee Dee Close</p>
+    </div>
+
+    <div class="footer-col reveal" style="transition-delay:0.2s">
+      <h3>Reach Out To Us</h3>
+      <div class="gold-rule"></div>
+      <p><strong>Nigeria Office</strong>Postal Code: 105101<br>Tel: +2348035239338<br>E-mail: royaltripledee@yahoo.com</p>
+      <p><strong>Lekki Office</strong>Tel: +2349019733420</p>
+    </div>
+
+    <div class="footer-col reveal" style="transition-delay:0.3s">
+      <h3>Quick Links</h3>
+      <div class="gold-rule"></div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="Gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; Copyright 2026 Royal Triple Dee College — All Rights Reserved.</p>
+    <p>Designed by <span class="designer">Divine Kelechukwu Okpara</span> —
+      <a href="https://wa.me/2349019733420" class="social-link">WhatsApp</a> |
+      <a href="https://twitter.com/DivOkpara" class="social-link">Twitter</a>
+    </p>
+  </div>
+</footer>
+
+
+<!-- ─── JAVASCRIPT ─── -->
+<script>
+
+/* 1. NAVBAR SCROLL */
+(function () {
+  var hdr = document.getElementById('siteHeader');
+  window.addEventListener('scroll', function () {
+    hdr.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+})();
+
+/* 2. MOBILE SIDEBAR */
+(function () {
+  var hamburger = document.getElementById('hamburgerBtn');
+  var sidebar   = document.getElementById('sidebar');
+  var overlay   = document.getElementById('sidebarOverlay');
+  var closeBtn  = document.getElementById('sidebarClose');
+  function open()  { sidebar.classList.add('open'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function close() { sidebar.classList.remove('open'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
+  hamburger.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', close);
+  document.querySelectorAll('.sidebar-links a').forEach(function (l) { l.addEventListener('click', close); });
+})();
+
+/* 3. DIVISION FILTER — Primary / Secondary / All */
+(function () {
+  var tabs     = document.querySelectorAll('.gf-tab');
+  var sections = document.querySelectorAll('.gal-section');
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      tabs.forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      var filter = tab.dataset.filter; // 'all' | 'primary' | 'secondary'
+
+      sections.forEach(function (section) {
+        var items = section.querySelectorAll('.gp');
+        var visible = 0;
+
+        items.forEach(function (gp) {
+          var div = gp.dataset.division;
+          if (filter === 'all' || div === filter) {
+            gp.style.display = '';
+            visible++;
+          } else {
+            gp.style.display = 'none';
+          }
+        });
+
+        // hide section entirely if no photos match
+        section.classList.toggle('hidden', visible === 0);
+      });
+    });
+  });
+})();
+
+/* 4. LIGHTBOX */
+(function () {
+  var lb      = document.getElementById('glb');
+  var lbImg   = document.getElementById('glbImg');
+  var lbTitle = document.getElementById('glbTitle');
+  var lbSub   = document.getElementById('glbSub');
+  var lbClose = document.getElementById('glbClose');
+  var lbPrev  = document.getElementById('glbPrev');
+  var lbNext  = document.getElementById('glbNext');
+  var curIdx  = 0;
+
+  function getItems() {
+    return Array.from(document.querySelectorAll('.gal-section:not(.hidden) .gp[style=""], .gal-section:not(.hidden) .gp:not([style])'));
+  }
+
+  function open(idx) {
+    var items = getItems();
+    if (!items.length) return;
+    curIdx = (idx + items.length) % items.length;
+    var el  = items[curIdx];
+    lbImg.src   = el.querySelector('img').src;
+    lbImg.alt   = el.querySelector('img').alt;
+    lbTitle.textContent = el.dataset.title || '';
+    lbSub.textContent   = el.dataset.sub   || '';
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // attach click to each photo item
+  document.querySelectorAll('.gp').forEach(function (el) {
+    el.addEventListener('click', function () {
+      if (el.style.display === 'none') return;
+      var items = getItems();
+      var idx   = items.indexOf(el);
+      if (idx !== -1) open(idx);
+    });
+  });
+
+  lbClose.addEventListener('click', close);
+  lbPrev.addEventListener('click', function () { open(curIdx - 1); });
+  lbNext.addEventListener('click', function () { open(curIdx + 1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     close();
+    if (e.key === 'ArrowLeft')  open(curIdx - 1);
+    if (e.key === 'ArrowRight') open(curIdx + 1);
+  });
+})();
+
+/* 5. SCROLL REVEAL */
+(function () {
+  var els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  if (!els.length) return;
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  els.forEach(function (el) { obs.observe(el); });
+})();
+
+</script>
+</body>
+</html>

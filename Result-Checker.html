@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Result Checker | Royal Triple Dee College</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500;600&family=EB+Garamond:ital@1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --forest: #042211;
+      --gold:   #d4af37;
+      --white:  #ffffff;
+      --cream:  #faf8f4;
+      --text:   #1a1a1a;
+      --mid:    #5a5a5a;
+      --border: rgba(4,34,17,0.1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); }
+
+    /* ══════════════════════════════════
+       NAVBAR — always dark, never white
+    ══════════════════════════════════ */
+    #siteHeader {
+      position: fixed !important;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--forest) !important;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    #siteHeader.scrolled {
+      border-bottom-color: rgba(212,175,55,0.3);
+      box-shadow: 0 2px 24px rgba(4,34,17,0.22);
+    }
+    #siteHeader .navbar { background: transparent !important; }
+    #siteHeader .nav-links a { color: rgba(255,255,255,0.85) !important; }
+    #siteHeader .nav-links a:hover { color: var(--gold) !important; }
+    #siteHeader .contact-us-btn { border-color: var(--gold) !important; }
+    #siteHeader .contact-us-btn a,
+    #siteHeader .contact-us-btn span { color: var(--gold) !important; }
+    #siteHeader .hamburger span { background: var(--white) !important; }
+
+    /* ══════════════════════════════════
+       HERO
+    ══════════════════════════════════ */
+    .rc-hero {
+      margin-top: 72px;
+      background: var(--forest);
+      min-height: 320px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; padding: 3rem 1.5rem;
+    }
+    .rc-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 15% 70%, rgba(212,175,55,0.12) 0%, transparent 55%),
+                  radial-gradient(ellipse at 85% 25%, rgba(212,175,55,0.07) 0%, transparent 50%);
+    }
+    .rc-hero::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .rc-hero-inner { position: relative; z-index: 2; text-align: center; max-width: 520px; width: 100%; }
+    .rc-hero-inner .eyebrow {
+      display: block; font-size: 0.65rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.9rem;
+    }
+    .rc-hero-inner h1 {
+      font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700; color: var(--white); line-height: 1.15; margin-bottom: 0.6rem;
+    }
+    .rc-hero-inner h1 em { color: var(--gold); font-style: italic; }
+    .rc-hero-inner p { font-size: 0.85rem; color: rgba(255,255,255,0.55); margin-bottom: 2rem; line-height: 1.7; }
+
+    /* PIN FORM */
+    .pin-form { display: flex; flex-direction: column; gap: 0.75rem; }
+    .pin-row  { display: flex; gap: 0.6rem; }
+    .pin-select, .pin-input {
+      flex: 1; height: 48px; border: 1.5px solid rgba(212,175,55,0.35); border-radius: 2px;
+      background: rgba(255,255,255,0.07); color: var(--white);
+      font-family: 'DM Sans', sans-serif; font-size: 0.85rem; padding: 0 1rem;
+      outline: none; transition: border-color 0.22s;
+      appearance: none; -webkit-appearance: none;
+    }
+    .pin-select option { background: var(--forest); color: var(--white); }
+    .pin-input::placeholder { color: rgba(255,255,255,0.38); }
+    .pin-select:focus, .pin-input:focus { border-color: var(--gold); }
+    .pin-input.big { flex: 2; font-size: 1rem; letter-spacing: 0.15em; font-weight: 600; }
+    .pin-btn {
+      height: 50px; background: var(--gold); color: var(--forest);
+      border: none; border-radius: 2px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+      transition: background 0.22s, transform 0.15s;
+    }
+    .pin-btn:hover  { background: #e0c040; transform: translateY(-1px); }
+    .pin-btn:active { transform: translateY(0); }
+    .pin-error { font-size: 0.78rem; color: #ff8585; text-align: left; padding-left: 0.2rem; display: none; }
+    .pin-error.show { display: block; }
+
+    /* ══════════════════════════════════
+       MAIN
+    ══════════════════════════════════ */
+    .rc-main { max-width: 960px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+    #resultSheet { display: none; }
+    #resultSheet.visible { display: block; animation: fadeUp 0.45s ease both; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);} }
+
+    /* ══════════════════════════════════
+       RESULT CARD — all text explicit
+    ══════════════════════════════════ */
+    .result-card {
+      background: var(--white); color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 48px rgba(4,34,17,0.08);
+    }
+
+    .result-header {
+      background: var(--forest); padding: 2rem 2.5rem 1.6rem;
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+    .result-header-logo {
+      width: 68px; height: 68px; border-radius: 50%;
+      object-fit: cover; border: 2px solid var(--gold); flex-shrink: 0;
+    }
+    .result-header-text { flex: 1; }
+    .result-header-text .school-name {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.55rem;
+      font-weight: 700; color: var(--white); letter-spacing: 0.02em; line-height: 1.1;
+    }
+    .result-header-text .school-name span { color: var(--gold); }
+    .result-header-text .school-motto {
+      font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(212,175,55,0.75); margin-top: 0.25rem;
+    }
+    .result-header-text .school-address {
+      font-size: 0.72rem; color: rgba(255,255,255,0.5); margin-top: 0.3rem;
+    }
+    .result-header-badge { text-align: right; flex-shrink: 0; }
+    .result-header-badge .term-label {
+      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(212,175,55,0.65);
+    }
+    .result-header-badge .term-val {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.3rem;
+      font-weight: 700; color: var(--gold); display: block;
+    }
+    .result-header-badge .session-val { font-size: 0.72rem; color: rgba(255,255,255,0.5); }
+
+    .result-title-band {
+      background: var(--gold); padding: 0.55rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .result-title-band h2 {
+      font-family: 'Cormorant Garamond', serif; font-size: 1rem;
+      font-weight: 700; color: var(--forest); letter-spacing: 0.04em;
+    }
+    .result-title-band span {
+      font-size: 0.7rem; font-weight: 600; color: var(--forest);
+      letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75;
+    }
+
+    .student-meta {
+      padding: 1.4rem 2.5rem; border-bottom: 1px solid var(--border);
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 0.6rem 1.5rem;
+      background: var(--white);
+    }
+    .meta-item { display: flex; flex-direction: column; gap: 0.15rem; }
+    .meta-item label {
+      font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: #888; font-weight: 600;
+    }
+    .meta-item span {
+      font-size: 0.88rem; font-weight: 600; color: var(--forest);
+      border-bottom: 1px solid var(--border); padding-bottom: 0.2rem; min-height: 1.4rem;
+    }
+
+    .cog-header { background: var(--forest); padding: 0.5rem 2.5rem; }
+    .cog-header h3 {
+      font-family: 'Cormorant Garamond', serif; font-size: 1rem;
+      font-weight: 700; color: var(--gold); letter-spacing: 0.08em; text-align: center;
+    }
+
+    .subject-table-wrap { padding: 0 2.5rem; overflow-x: auto; background: var(--white); }
+    .subject-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+    .subject-table thead tr { background: rgba(4,34,17,0.05); }
+    .subject-table th {
+      padding: 0.7rem 0.5rem; text-align: center;
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--forest);
+      border: 1px solid rgba(4,34,17,0.12); line-height: 1.3;
+    }
+    .subject-table th.subj-col { text-align: left; }
+    .subject-table td {
+      padding: 0.5rem; border: 1px solid rgba(4,34,17,0.09);
+      text-align: center; color: var(--text); font-size: 0.78rem;
+    }
+    .subject-table td.subj-name {
+      text-align: left; font-weight: 500; color: var(--forest); font-size: 0.76rem; white-space: nowrap;
+    }
+    .subject-table td.subj-name.sub-item {
+      padding-left: 1.5rem; font-weight: 400; color: var(--mid); font-size: 0.72rem;
+    }
+    .subject-table td.subj-name.group-header {
+      font-weight: 700; font-size: 0.74rem; color: var(--forest); background: rgba(4,34,17,0.03);
+    }
+    .subject-table tr:hover td { background: rgba(212,175,55,0.05); }
+    .subject-table .grade-cell { font-weight: 700; font-size: 0.82rem; }
+    .grade-a{color:#1a7a3a;} .grade-b{color:#2a6fa8;} .grade-c{color:#8a6a00;} .grade-d{color:#c04a00;} .grade-f{color:#b00000;}
+    .total-row td { background: var(--forest) !important; color: var(--gold) !important; font-weight: 700; font-size: 0.82rem; }
+
+    .psycho-section { padding: 1.2rem 2.5rem; border-top: 1px solid var(--border); background: var(--white); }
+    .psycho-section h4 {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.95rem;
+      font-weight: 700; color: var(--forest); margin-bottom: 0.75rem; letter-spacing: 0.04em;
+    }
+    .psycho-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0.5rem; }
+    .psycho-item {
+      border: 1px solid var(--border); padding: 0.5rem 0.6rem;
+      display: flex; justify-content: space-between; align-items: center; background: var(--white);
+    }
+    .psycho-item label { font-size: 0.68rem; color: var(--mid); font-weight: 500; }
+    .psycho-item span  { font-size: 0.8rem; font-weight: 700; color: var(--forest); }
+
+    .result-footer-grid {
+      padding: 1.2rem 2.5rem 1.5rem; border-top: 1px solid var(--border);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: var(--white);
+    }
+    .rf-block label {
+      display: block; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: #888; margin-bottom: 0.3rem; font-weight: 600;
+    }
+    .rf-block .rf-value {
+      font-size: 0.84rem; color: var(--forest); font-style: italic;
+      border-bottom: 1px solid var(--border); padding-bottom: 0.25rem; min-height: 1.5rem;
+    }
+
+    .grading-key {
+      margin: 0 2.5rem 1.5rem;
+      background: rgba(4,34,17,0.03); border: 1px solid var(--border);
+      padding: 0.8rem 1.2rem; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;
+    }
+    .grading-key span   { font-size: 0.68rem; color: var(--mid); font-weight: 500; }
+    .grading-key strong { color: var(--forest); font-weight: 700; }
+    .gk-title { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--forest); font-weight: 700; margin-right: 0.5rem; }
+
+    .result-sign-row {
+      padding: 0 2.5rem 1.8rem; display: flex; gap: 2rem; align-items: flex-end; flex-wrap: wrap; background: var(--white);
+    }
+    .sign-block { flex: 1; min-width: 140px; }
+    .sign-block label { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: #aaa; display: block; margin-bottom: 0.5rem; }
+    .sign-line { border-bottom: 1.5px solid var(--border); height: 2rem; width: 100%; }
+
+    /* Action buttons */
+    .result-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; margin-bottom: 1rem; }
+    .btn-print, .btn-new {
+      padding: 0.55rem 1.4rem; border-radius: 2px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; border: none; transition: all 0.22s;
+    }
+    .btn-print { background: var(--forest); color: var(--gold); }
+    .btn-print:hover { background: #063318; }
+    .btn-new { background: transparent; color: var(--forest); border: 1.5px solid var(--border); }
+    .btn-new:hover { border-color: var(--forest); }
+
+    /* Loading */
+    .rc-loading { display: none; text-align: center; padding: 3rem; }
+    .rc-loading.show { display: block; }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid rgba(212,175,55,0.2); border-top-color: var(--gold);
+      border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .rc-loading p { font-size: 0.82rem; color: var(--mid); }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .result-header { flex-wrap: wrap; gap: 1rem; }
+      .result-header-badge { width: 100%; text-align: left; }
+      .student-meta { grid-template-columns: 1fr 1fr; }
+      .psycho-grid  { grid-template-columns: repeat(2,1fr); }
+      .subject-table-wrap { padding: 0 1rem; }
+      .result-header, .result-title-band, .student-meta, .cog-header,
+      .psycho-section, .result-footer-grid, .grading-key, .result-sign-row { padding-left: 1rem; padding-right: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <nav class="navbar">
+    <div class="logo"><img src="logo.jpeg" alt="Royal Triple Dee Logo"></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="Primary.html">Primary</a></li>
+      <li><a href="Secondary.html">Secondary</a></li>
+      <li><a href="Gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><button class="contact-us-btn active-btn"><span><a href="Result-Checker.html">Result-Checker</a></span></button></li>
+    </ul>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">&#10005;</button>
+  <ul class="sidebar-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="Primary.html">Primary</a></li>
+    <li><a href="Secondary.html">Secondary</a></li>
+    <li><a href="Gallery.html">Gallery</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><button class="contact-us-btn sidebar-cta"><span>Result-Checker</span></button></li>
+  </ul>
+</aside>
+
+<section class="rc-hero">
+  <div class="rc-hero-inner">
+    <span class="eyebrow">Royal Triple Dee College — Result Portal</span>
+    <h1>Check Your <em>Result</em></h1>
+    <p>Enter your unique PIN, select your class and term to view your personal result sheet.</p>
+    <div class="pin-form">
+      <div class="pin-row">
+        <select class="pin-select" id="selClass">
+          <option value="">— Select Class —</option>
+          <option value="JSS1">JSS 1</option>
+          <option value="JSS2">JSS 2</option>
+          <option value="JSS3">JSS 3</option>
+          <option value="SS1">SS 1</option>
+          <option value="SS2">SS 2</option>
+          <option value="SS3">SS 3</option>
+        </select>
+        <select class="pin-select" id="selTerm">
+          <option value="">— Select Term —</option>
+          <option value="First Term">First Term</option>
+          <option value="Second Term">Second Term</option>
+          <option value="Third Term">Third Term</option>
+        </select>
+      </div>
+      <div class="pin-row">
+        <input class="pin-input big" id="pinInput" type="text" placeholder="Enter PIN e.g. RTD-2024-001" maxlength="20" autocomplete="off">
+        <button class="pin-btn" id="checkBtn">Check Result</button>
+      </div>
+      <div class="pin-error" id="pinError">⚠ PIN not found. Please check your details and try again.</div>
+    </div>
+  </div>
+</section>
+
+<main class="rc-main">
+  <div class="rc-loading" id="rcLoading">
+    <div class="spinner"></div>
+    <p>Fetching result, please wait…</p>
+  </div>
+
+  <div id="resultSheet">
+    <div class="result-actions">
+      <button class="btn-new" id="newCheckBtn">&#8592; Check Another</button>
+      <button class="btn-print" id="printBtn">Print / Save PDF</button>
+    </div>
+    <div class="result-card" id="resultCard">
+      <div class="result-header">
+        <img src="logo.jpeg" alt="School Logo" class="result-header-logo" onerror="this.style.display='none'">
+        <div class="result-header-text">
+          <div class="school-name">Royal <span>Triple Dee</span> College</div>
+          <div class="school-motto">…Be Resourceful</div>
+          <div class="school-address">3, Triplee Dee Close, Omolola Lawal Street, Ibeju-Lekki, Lagos</div>
+        </div>
+        <div class="result-header-badge">
+          <div class="term-label">Term</div>
+          <span class="term-val" id="rTerm">—</span>
+          <div class="session-val" id="rSession">—</div>
+        </div>
+      </div>
+      <div class="result-title-band">
+        <h2>Continuous Assessment Result Sheet</h2>
+        <span id="rDivision">Junior Secondary School</span>
+      </div>
+      <div class="student-meta">
+        <div class="meta-item"><label>Student Name</label><span id="rName">—</span></div>
+        <div class="meta-item"><label>Class</label><span id="rClass">—</span></div>
+        <div class="meta-item"><label>Academic Year</label><span id="rYear">—</span></div>
+        <div class="meta-item"><label>No. in Class</label><span id="rClassSize">—</span></div>
+        <div class="meta-item"><label>Position in Class</label><span id="rPosition">—</span></div>
+        <div class="meta-item"><label>Attendance</label><span id="rAttendance">—</span></div>
+      </div>
+      <div class="cog-header"><h3>Cognitive Skills</h3></div>
+      <div class="subject-table-wrap">
+        <table class="subject-table">
+          <thead>
+            <tr>
+              <th class="subj-col" style="min-width:160px">Subjects</th>
+              <th>Exam Mark<br><small>(Out of 60)</small></th>
+              <th>Continuous Assessment<br><small>(Out of 40)</small></th>
+              <th>Total Term Score<br><small>(Out of 100)</small></th>
+              <th>2nd Term Mark<br><small>(Out of 100)</small></th>
+              <th>Grade</th>
+              <th style="min-width:110px">Subject Teacher's Comments</th>
+              <th>Sign</th>
+              <th style="min-width:90px">Affective &amp; Psychomotor Grade</th>
+            </tr>
+          </thead>
+          <tbody id="subjectTableBody"></tbody>
+          <tfoot>
+            <tr class="total-row">
+              <td class="subj-name" style="text-align:left;font-weight:700;">TOTAL</td>
+              <td id="totalExam">—</td>
+              <td id="totalCA">—</td>
+              <td id="totalScore">—</td>
+              <td>—</td><td>—</td><td colspan="3"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="psycho-section">
+        <h4>Affective &amp; Psychomotor Assessment</h4>
+        <div class="psycho-grid" id="psychoGrid"></div>
+      </div>
+      <div class="result-footer-grid">
+        <div class="rf-block"><label>Class Teacher's Comment</label><div class="rf-value" id="rTeacherComment">—</div></div>
+        <div class="rf-block"><label>Principal's Comment</label><div class="rf-value" id="rPrincipalComment">—</div></div>
+      </div>
+      <div class="grading-key">
+        <span class="gk-title">Grading Key:</span>
+        <span><strong class="grade-a">A — Very High</strong></span>
+        <span><strong class="grade-b">B — High</strong></span>
+        <span><strong class="grade-c">C — Average</strong></span>
+        <span><strong class="grade-d">D — Below Average</strong></span>
+        <span><strong class="grade-f">F — Low</strong></span>
+      </div>
+      <div class="result-sign-row">
+        <div class="sign-block"><label>Next Term Begins On</label><div class="sign-line" id="rNextTerm"></div></div>
+        <div class="sign-block"><label>Class Teacher's Signature</label><div class="sign-line"></div></div>
+        <div class="sign-block"><label>Principal's Signature</label><div class="sign-line"></div></div>
+        <div class="sign-block"><label>Date</label><div class="sign-line"></div></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="main-footer" id="footer-main">
+  <div class="footer-container">
+    <div class="footer-col logo-col">
+      <img src="logo.jpeg" alt="School Logo" class="footer-logo">
+      <p class="faith-text">Faith in God</p>
+    </div>
+    <div class="footer-col">
+      <h3>Address</h3><div class="gold-rule"></div>
+      <p><strong>Main Location</strong><br>3, Triplee Dee Close, Omolola Lawal Street, Ibeju-Lekki, 105101, Lagos</p>
+    </div>
+    <div class="footer-col">
+      <h3>Reach Out To Us</h3><div class="gold-rule"></div>
+      <p><strong>Nigeria Office</strong><br>Tel: +2348035239338<br>E-mail: royaltripledee@yahoo.com</p>
+    </div>
+    <div class="footer-col">
+      <h3>Quick Links</h3><div class="gold-rule"></div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; Copyright 2026 Royal Triple Dee College — All Rights Reserved.</p>
+    <p>Designed by <span class="designer">Divine Kelechukwu Okpara</span> —
+      <a href="https://wa.me/2349019733420" class="social-link">WhatsApp</a> |
+      <a href="https://twitter.com/DivOkpara" class="social-link">Twitter</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzON5Yjcwlgj8sOzkxHEPf1uXzjVlSRzWCwdf1g7ib-0q_G-bAKtfwrGbzk7MiTQOM/exec';
+
+var JSS_SUBJECTS = [
+  { name:'1. English Studies',            key:'english',         group:false },
+  { name:'Mathematics',                   key:'mathematics',     group:false },
+  { name:'2. Basic Science & Technology', key:null,              group:true  },
+  { name:'a. Basic Science',              key:'basicScience',    group:false, sub:true },
+  { name:'b. Basic Technology',           key:'basicTech',       group:false, sub:true },
+  { name:'c. Information Technology',     key:'infoTech',        group:false, sub:true },
+  { name:'3. Religion & National Values', key:null,              group:true  },
+  { name:'a. CRK / IRK',                 key:'crk',             group:false, sub:true },
+  { name:'b. Civic Education',            key:'civicEd',         group:false, sub:true },
+  { name:'c. Civic & Social Studies',     key:'socialStudies',   group:false, sub:true },
+  { name:'d. Security Education',         key:'securityEd',      group:false, sub:true },
+  { name:'4. Creative & Cultural Art',    key:'creativeArt',     group:false },
+  { name:'5. Business Studies',           key:'businessStudies', group:false },
+  { name:'6. Nigerian Languages',         key:null,              group:true  },
+  { name:'a. Hausa',                      key:'hausa',           group:false, sub:true },
+  { name:'b. Igbo',                       key:'igbo',            group:false, sub:true },
+  { name:'c. Yoruba',                     key:'yoruba',          group:false, sub:true },
+  { name:'7. Pre-Vocational Studies',     key:null,              group:true  },
+  { name:'a. Home Economics',             key:'homeEc',          group:false, sub:true },
+  { name:'b. Agricultural Science',       key:'agric',           group:false, sub:true },
+  { name:'8. French',                     key:'french',          group:false },
+  { name:'9. Music',                      key:'music',           group:false },
+  { name:'10. Arabic',                    key:'arabic',          group:false },
+];
+
+var SS_SUBJECTS = [
+  { name:'1. English Language',      key:'english',      group:false },
+  { name:'2. Mathematics',           key:'mathematics',  group:false },
+  { name:'3. Literature in English', key:'literature',   group:false },
+  { name:'4. Biology',               key:'biology',      group:false },
+  { name:'5. Chemistry',             key:'chemistry',    group:false },
+  { name:'6. Physics',               key:'physics',      group:false },
+  { name:'7. Government',            key:'government',   group:false },
+  { name:'8. Economics',             key:'economics',    group:false },
+  { name:'9. Commerce',              key:'commerce',     group:false },
+  { name:'10. Accounting',           key:'accounting',   group:false },
+  { name:'11. Geography',            key:'geography',    group:false },
+  { name:'12. CRK / IRK',           key:'crk',          group:false },
+  { name:'13. French',               key:'french',       group:false },
+  { name:'14. Further Mathematics',  key:'furtherMaths', group:false },
+];
+
+var PSYCHO_TRAITS = ['Punctuality','Neatness','Honesty','Leadership','Cooperation','Attentiveness','Initiative','Sports','Creativity'];
+
+function getGrade(score) {
+  if (!score && score !== 0) return '—';
+  score = Number(score);
+  if (score >= 75) return 'A';
+  if (score >= 60) return 'B';
+  if (score >= 50) return 'C';
+  if (score >= 40) return 'D';
+  return 'F';
+}
+function gradeClass(g) {
+  return {A:'grade-a',B:'grade-b',C:'grade-c',D:'grade-d',F:'grade-f'}[g]||'';
+}
+
+/* Navbar */
+(function(){
+  var hdr = document.getElementById('siteHeader');
+  window.addEventListener('scroll', function(){ hdr.classList.toggle('scrolled', window.scrollY > 40); }, {passive:true});
+})();
+
+/* Sidebar */
+(function(){
+  var ham=document.getElementById('hamburgerBtn'),
+      sb=document.getElementById('sidebar'),
+      ov=document.getElementById('sidebarOverlay'),
+      cl=document.getElementById('sidebarClose');
+  function open(){sb.classList.add('open');ov.classList.add('active');document.body.style.overflow='hidden';}
+  function close(){sb.classList.remove('open');ov.classList.remove('active');document.body.style.overflow='';}
+  ham.addEventListener('click',open);
+  cl.addEventListener('click',close);
+  ov.addEventListener('click',close);
+  document.querySelectorAll('.sidebar-links a').forEach(function(l){l.addEventListener('click',close);});
+})();
+
+function renderResult(data) {
+  document.getElementById('rName').textContent             = data.studentName      || '—';
+  document.getElementById('rClass').textContent            = data.studentClass     || '—';
+  document.getElementById('rTerm').textContent             = data.term             || '—';
+  document.getElementById('rSession').textContent          = data.session          || '—';
+  document.getElementById('rYear').textContent             = data.session          || '—';
+  document.getElementById('rClassSize').textContent        = data.classSize        || '—';
+  document.getElementById('rPosition').textContent         = data.position         || '—';
+  document.getElementById('rAttendance').textContent       = data.attendance       || '—';
+  document.getElementById('rTeacherComment').textContent   = data.teacherComment   || '—';
+  document.getElementById('rPrincipalComment').textContent = data.principalComment || '—';
+  document.getElementById('rNextTerm').textContent         = data.nextTermDate     || '';
+
+  var cls = data.studentClass || '';
+  var isJSS = /^JSS?/i.test(cls);
+  document.getElementById('rDivision').textContent = isJSS ? 'Junior Secondary School' : 'Senior Secondary School';
+
+  var subjects = isJSS ? JSS_SUBJECTS : SS_SUBJECTS;
+  var scores   = data.scores || {};
+  var tbody    = document.getElementById('subjectTableBody');
+  tbody.innerHTML = '';
+  var totalExam=0, totalCA=0, totalScore=0, scoredRows=0;
+
+  subjects.forEach(function(s){
+    var tr = document.createElement('tr');
+    if (s.group) {
+      tr.innerHTML='<td class="subj-name group-header" colspan="9">'+s.name+'</td>';
+      tbody.appendChild(tr); return;
+    }
+    var sc    = scores[s.key]||{};
+    var exam  = sc.exam  !== undefined ? sc.exam  : '';
+    var ca    = sc.ca    !== undefined ? sc.ca    : '';
+    var total = sc.total !== undefined ? sc.total : (exam!==''&&ca!==''?Number(exam)+Number(ca):'');
+    var prev  = sc.prev  !== undefined ? sc.prev  : '';
+    var grade = total!=='' ? getGrade(total) : '—';
+    var gCls  = gradeClass(grade);
+    if (total!==''){totalExam+=Number(exam)||0;totalCA+=Number(ca)||0;totalScore+=Number(total)||0;scoredRows++;}
+    tr.innerHTML=
+      '<td class="subj-name'+(s.sub?' sub-item':'')+'">'+s.name+'</td>'+
+      '<td>'+(exam!==''?exam:'')+'</td>'+
+      '<td>'+(ca!==''?ca:'')+'</td>'+
+      '<td>'+(total!==''?total:'')+'</td>'+
+      '<td>'+(prev!==''?prev:'')+'</td>'+
+      '<td class="grade-cell '+gCls+'">'+grade+'</td>'+
+      '<td style="font-size:0.68rem;color:#666">'+(sc.comment||'')+'</td>'+
+      '<td>'+(sc.sign||'')+'</td>'+
+      '<td class="grade-cell">'+(sc.psycho||'')+'</td>';
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('totalExam').textContent  = scoredRows ? totalExam  : '—';
+  document.getElementById('totalCA').textContent    = scoredRows ? totalCA    : '—';
+  document.getElementById('totalScore').textContent = scoredRows ? totalScore : '—';
+
+  var pg = document.getElementById('psychoGrid');
+  pg.innerHTML='';
+  PSYCHO_TRAITS.forEach(function(trait){
+    var val=(data.psychomotor||{})[trait.toLowerCase()]||'—';
+    pg.innerHTML+='<div class="psycho-item"><label>'+trait+'</label><span>'+val+'</span></div>';
+  });
+}
+
+function showError(msg){
+  document.getElementById('rcLoading').classList.remove('show');
+  var err=document.getElementById('pinError');
+  err.textContent=msg; err.classList.add('show');
+}
+
+function showResultSheet(){
+  var sheet=document.getElementById('resultSheet');
+  sheet.style.display='block';
+  setTimeout(function(){
+    sheet.classList.add('visible');
+    sheet.scrollIntoView({behavior:'smooth',block:'start'});
+  },60);
+}
+
+function fetchResult(pin,cls,term){
+  document.getElementById('pinError').classList.remove('show');
+  document.getElementById('resultSheet').classList.remove('visible');
+  document.getElementById('resultSheet').style.display='none';
+  document.getElementById('rcLoading').classList.add('show');
+
+  var url=APPS_SCRIPT_URL+'?pin='+encodeURIComponent(pin)+'&class='+encodeURIComponent(cls)+'&term='+encodeURIComponent(term);
+  fetch(url,{redirect:'follow'})
+    .then(function(r){return r.json();})
+    .then(function(data){
+      document.getElementById('rcLoading').classList.remove('show');
+      if(data.error||!data.studentName){showError('⚠ PIN not found. Please check your details and try again.');return;}
+      renderResult(data);
+      showResultSheet();
+    })
+    .catch(function(err){
+      console.error('Fetch error:',err);
+      showError('⚠ Could not connect to the server. Please try again.');
+    });
+}
+
+function loadDemoResult(){
+  var d={
+    studentName:'Adebayo Oluwaseun',studentClass:'JSS2',term:'First Term',
+    session:'2024 / 2025',classSize:'20',position:'3rd',attendance:'95%',
+    nextTermDate:'13th January 2025',
+    teacherComment:'An excellent student with outstanding performance. Keep it up!',
+    principalComment:'Very impressive. We are proud of your achievement.',
+    scores:{
+      english:        {exam:52,ca:36,total:88,prev:84,comment:'Excellent',  psycho:'A'},
+      mathematics:    {exam:48,ca:38,total:86,prev:80,comment:'Very Good',  psycho:'A'},
+      basicScience:   {exam:44,ca:33,total:77,prev:72,comment:'Good',       psycho:'B'},
+      basicTech:      {exam:40,ca:30,total:70,prev:68,comment:'Good',       psycho:'B'},
+      infoTech:       {exam:50,ca:37,total:87,prev:85,comment:'Excellent',  psycho:'A'},
+      crk:            {exam:45,ca:35,total:80,prev:78,comment:'Very Good',  psycho:'A'},
+      civicEd:        {exam:42,ca:32,total:74,prev:70,comment:'Good',       psycho:'B'},
+      socialStudies:  {exam:38,ca:28,total:66,prev:62,comment:'Average',    psycho:'B'},
+      creativeArt:    {exam:55,ca:38,total:93,prev:90,comment:'Outstanding',psycho:'A'},
+      businessStudies:{exam:41,ca:31,total:72,prev:69,comment:'Good',       psycho:'B'},
+      igbo:           {exam:46,ca:34,total:80,prev:76,comment:'Very Good',  psycho:'A'},
+      french:         {exam:43,ca:33,total:76,prev:71,comment:'Good',       psycho:'B'},
+    },
+    psychomotor:{punctuality:'A',neatness:'A',honesty:'A',leadership:'B',cooperation:'A',attentiveness:'A',initiative:'B',sports:'B',creativity:'A'}
+  };
+  document.getElementById('rcLoading').classList.remove('show');
+  renderResult(d);
+  showResultSheet();
+}
+
+document.getElementById('checkBtn').addEventListener('click',function(){
+  var pin=document.getElementById('pinInput').value.trim();
+  var cls=document.getElementById('selClass').value;
+  var term=document.getElementById('selTerm').value;
+  if(!pin||!cls||!term){showError('⚠ Please fill in all fields — class, term, and PIN.');return;}
+  if(pin.toUpperCase().startsWith('DEMO')){
+    document.getElementById('rcLoading').classList.add('show');
+    document.getElementById('pinError').classList.remove('show');
+    setTimeout(loadDemoResult,900); return;
+  }
+  fetchResult(pin,cls,term);
+});
+
+document.getElementById('pinInput').addEventListener('keydown',function(e){
+  if(e.key==='Enter') document.getElementById('checkBtn').click();
+});
+
+document.getElementById('newCheckBtn').addEventListener('click',function(){
+  document.getElementById('resultSheet').classList.remove('visible');
+  document.getElementById('resultSheet').style.display='none';
+  document.getElementById('pinInput').value='';
+  document.getElementById('selClass').value='';
+  document.getElementById('selTerm').value='';
+  document.getElementById('pinError').classList.remove('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* ════════════════════════════════════════════════════════
+   PRINT / SAVE PDF
+   Opens a dedicated print window with the result card
+   and ALL styles fully self-contained (no external deps
+   except Google Fonts). Auto-triggers print dialog.
+   If browser blocks pop-ups, shows a clear alert.
+════════════════════════════════════════════════════════ */
+document.getElementById('printBtn').addEventListener('click', function(){
+
+  var cardHTML = document.getElementById('resultCard').outerHTML;
+
+  var pw = window.open('', '_blank', 'width=1050,height=780,scrollbars=yes,resizable=yes');
+  if (!pw) {
+    alert('Pop-up blocked!\n\nPlease allow pop-ups for this page:\n1. Click the pop-up blocked icon in your browser address bar\n2. Select "Always allow"\n3. Then click Print / Save PDF again.');
+    return;
+  }
+
+  var styles = [
+    '*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important;}',
+    'body{font-family:"DM Sans",sans-serif;background:#ffffff;padding:0.5rem;color:#1a1a1a;}',
+
+    /* Card */
+    '.result-card{background:#ffffff;border:1px solid rgba(4,34,17,0.1);font-family:"DM Sans",sans-serif;color:#1a1a1a;}',
+
+    /* Header */
+    '.result-header{background:#042211!important;padding:1.6rem 2rem;display:flex;align-items:center;gap:1.2rem;}',
+    '.result-header-logo{width:62px;height:62px;border-radius:50%;object-fit:cover;border:2px solid #d4af37;flex-shrink:0;}',
+    '.result-header-text{flex:1;}',
+    '.school-name{font-family:"Cormorant Garamond",serif;font-size:1.45rem;font-weight:700;color:#ffffff!important;letter-spacing:0.02em;line-height:1.1;}',
+    '.school-name span{color:#d4af37!important;}',
+    '.school-motto{font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(212,175,55,0.8)!important;margin-top:0.2rem;}',
+    '.school-address{font-size:0.68rem;color:rgba(255,255,255,0.55)!important;margin-top:0.25rem;}',
+    '.result-header-badge{text-align:right;flex-shrink:0;margin-left:auto;}',
+    '.term-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(212,175,55,0.7)!important;}',
+    '.term-val{font-family:"Cormorant Garamond",serif;font-size:1.2rem;font-weight:700;color:#d4af37!important;display:block;}',
+    '.session-val{font-size:0.68rem;color:rgba(255,255,255,0.55)!important;}',
+
+    /* Title band */
+    '.result-title-band{background:#d4af37!important;padding:0.5rem 2rem;display:flex;align-items:center;justify-content:space-between;}',
+    '.result-title-band h2{font-family:"Cormorant Garamond",serif;font-size:0.95rem;font-weight:700;color:#042211!important;letter-spacing:0.04em;}',
+    '.result-title-band span{font-size:0.66rem;font-weight:600;color:#042211!important;letter-spacing:0.1em;text-transform:uppercase;opacity:0.8;}',
+
+    /* Student meta */
+    '.student-meta{padding:1.2rem 2rem;border-bottom:1px solid rgba(4,34,17,0.1);display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem 1.2rem;background:#ffffff!important;}',
+    '.meta-item{display:flex;flex-direction:column;gap:0.12rem;}',
+    '.meta-item label{font-size:0.56rem;letter-spacing:0.15em;text-transform:uppercase;color:#888888!important;font-weight:600;}',
+    '.meta-item span{font-size:0.84rem;font-weight:600;color:#042211!important;border-bottom:1px solid rgba(4,34,17,0.1);padding-bottom:0.15rem;min-height:1.3rem;}',
+
+    /* Cognitive header */
+    '.cog-header{background:#042211!important;padding:0.45rem 2rem;}',
+    '.cog-header h3{font-family:"Cormorant Garamond",serif;font-size:0.95rem;font-weight:700;color:#d4af37!important;letter-spacing:0.08em;text-align:center;}',
+
+    /* Table */
+    '.subject-table-wrap{padding:0 2rem;background:#ffffff!important;overflow:visible;}',
+    '.subject-table{width:100%;border-collapse:collapse;font-size:0.72rem;}',
+    '.subject-table thead tr{background:rgba(4,34,17,0.05)!important;}',
+    '.subject-table th{padding:0.55rem 0.4rem;text-align:center;font-size:0.56rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#042211!important;border:1px solid rgba(4,34,17,0.12);line-height:1.25;}',
+    '.subject-table th.subj-col{text-align:left;}',
+    '.subject-table td{padding:0.4rem;border:1px solid rgba(4,34,17,0.09);text-align:center;color:#1a1a1a!important;font-size:0.72rem;}',
+    '.subject-table td.subj-name{text-align:left;font-weight:500;color:#042211!important;font-size:0.7rem;white-space:nowrap;}',
+    '.subject-table td.subj-name.sub-item{padding-left:1.2rem;font-weight:400;color:#5a5a5a!important;font-size:0.66rem;}',
+    '.subject-table td.subj-name.group-header{font-weight:700;font-size:0.68rem;color:#042211!important;background:rgba(4,34,17,0.03)!important;}',
+    '.grade-cell{font-weight:700;font-size:0.78rem;}',
+    '.grade-a{color:#1a7a3a!important;}.grade-b{color:#2a6fa8!important;}.grade-c{color:#8a6a00!important;}.grade-d{color:#c04a00!important;}.grade-f{color:#b00000!important;}',
+    '.total-row td{background:#042211!important;color:#d4af37!important;font-weight:700;font-size:0.76rem;}',
+
+    /* Psycho */
+    '.psycho-section{padding:1rem 2rem;border-top:1px solid rgba(4,34,17,0.1);background:#ffffff!important;}',
+    '.psycho-section h4{font-family:"Cormorant Garamond",serif;font-size:0.9rem;font-weight:700;color:#042211!important;margin-bottom:0.6rem;letter-spacing:0.04em;}',
+    '.psycho-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.4rem;}',
+    '.psycho-item{border:1px solid rgba(4,34,17,0.1);padding:0.4rem 0.55rem;display:flex;justify-content:space-between;align-items:center;background:#ffffff!important;}',
+    '.psycho-item label{font-size:0.64rem;color:#5a5a5a!important;font-weight:500;}',
+    '.psycho-item span{font-size:0.76rem;font-weight:700;color:#042211!important;}',
+
+    /* Footer grid */
+    '.result-footer-grid{padding:1rem 2rem 1.2rem;border-top:1px solid rgba(4,34,17,0.1);display:grid;grid-template-columns:1fr 1fr;gap:1rem;background:#ffffff!important;}',
+    '.rf-block label{display:block;font-size:0.56rem;letter-spacing:0.15em;text-transform:uppercase;color:#888888!important;margin-bottom:0.25rem;font-weight:600;}',
+    '.rf-block .rf-value{font-size:0.8rem;color:#042211!important;font-style:italic;border-bottom:1px solid rgba(4,34,17,0.1);padding-bottom:0.2rem;min-height:1.4rem;}',
+
+    /* Grading key */
+    '.grading-key{margin:0 2rem 1.2rem;background:rgba(4,34,17,0.03)!important;border:1px solid rgba(4,34,17,0.1);padding:0.65rem 1rem;display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;}',
+    '.grading-key span{font-size:0.64rem;color:#5a5a5a!important;font-weight:500;}',
+    '.gk-title{font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:#042211!important;font-weight:700;margin-right:0.4rem;}',
+
+    /* Sign row */
+    '.result-sign-row{padding:0 2rem 1.5rem;display:flex;gap:1.5rem;align-items:flex-end;flex-wrap:wrap;background:#ffffff!important;}',
+    '.sign-block{flex:1;min-width:120px;}',
+    '.sign-block label{font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:#aaaaaa!important;display:block;margin-bottom:0.4rem;}',
+    '.sign-line{border-bottom:1.5px solid rgba(4,34,17,0.1);height:1.8rem;width:100%;}',
+
+    '@media print{body{padding:0;}}'
+  ].join('\n');
+
+  pw.document.open();
+  pw.document.write('<!DOCTYPE html><html><head>');
+  pw.document.write('<meta charset="UTF-8">');
+  pw.document.write('<title>Result Sheet — Royal Triple Dee College</title>');
+  pw.document.write('<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">');
+  pw.document.write('<style>' + styles + '</style>');
+  pw.document.write('</head><body>');
+  pw.document.write(cardHTML);
+  pw.document.write('<script>window.onload=function(){setTimeout(function(){window.print();},900);}<\/script>');
+  pw.document.write('</body></html>');
+  pw.document.close();
+});
+</script>
+</body>
+</html>

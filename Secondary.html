@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secondary School — Royal Triple Dee College</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500&family=EB+Garamond:ital@1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+    /* ============================================================
+       SECONDARY PAGE — EXCLUSIVE ANIMATIONS & OVERRIDES
+       Superior to index/primary: staggered text morphs, parallax
+       hover tilt, magnetic cursor glow, ink-reveal captions
+    ============================================================ */
+
+    /* ── HERO ── */
+    #rtd-hero { height: 100vh; min-height: 640px; }
+
+    /* Deeper cinematic overlay on secondary */
+    #rtd-hero .rtd-overlay {
+        background:
+            linear-gradient(115deg, rgba(4,34,17,0.92) 0%, rgba(4,34,17,0.52) 58%, transparent 100%),
+            linear-gradient(to top, rgba(4,34,17,0.82) 0%, transparent 48%);
+    }
+
+    /* Hero slide text — animated word stagger */
+    #rtd-hero .rtd-content h1 {
+        overflow: hidden;
+    }
+
+    #rtd-hero .rtd-content h1 .word {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(110%);
+        transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    #rtd-hero .rtd-content.show h1 .word { opacity: 1; transform: translateY(0); }
+    #rtd-hero .rtd-content.show h1 .word:nth-child(1) { transition-delay: 0.05s; }
+    #rtd-hero .rtd-content.show h1 .word:nth-child(2) { transition-delay: 0.18s; }
+    #rtd-hero .rtd-content.show h1 .word:nth-child(3) { transition-delay: 0.3s; }
+    #rtd-hero .rtd-content.show h1 .word:nth-child(4) { transition-delay: 0.42s; }
+
+    /* Gold overline that draws itself in */
+    #rtd-hero .rtd-content .hero-overline {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 22px;
+        overflow: hidden;
+    }
+
+    #rtd-hero .rtd-content .hero-overline span {
+        font-family: var(--font-body);
+        font-size: 0.68rem;
+        font-weight: 500;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--gold);
+        opacity: 0;
+        transform: translateX(-16px);
+        transition: opacity 0.6s ease 0.55s, transform 0.6s ease 0.55s;
+    }
+
+    #rtd-hero .rtd-content .hero-overline::before {
+        content: '';
+        display: block;
+        height: 1px;
+        width: 0;
+        background: var(--gold-gradient);
+        transition: width 0.7s ease 0.3s;
+        flex-shrink: 0;
+    }
+
+    #rtd-hero .rtd-content.show .hero-overline span { opacity: 1; transform: translateX(0); }
+    #rtd-hero .rtd-content.show .hero-overline::before { width: 44px; }
+
+    /* ── INFO SPLIT SECTION ── */
+    .info-split-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 540px;
+        overflow: hidden;
+    }
+
+    .text-block {
+        background: var(--forest);
+        padding: 100px 8% 100px 6%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .text-block::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 60% 70% at 0% 50%, rgba(212,175,55,0.07) 0%, transparent 65%);
+        pointer-events: none;
+    }
+
+    /* Counter line that draws in on scroll */
+    .text-block::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        width: 3px; height: 0;
+        background: var(--gold-gradient);
+        transition: height 1.2s cubic-bezier(0.16,1,0.3,1) 0.2s;
+    }
+
+    .text-block.visible::after { height: 100%; }
+
+    .section-heading {
+        font-family: var(--font-display);
+        font-size: clamp(1.9rem, 3vw, 2.8rem);
+        font-weight: 700;
+        font-style: italic;
+        color: #fff;
+        line-height: 1.1;
+        margin-bottom: 28px;
+        letter-spacing: -0.02em;
+    }
+
+    .section-heading .gold-word {
+        color: var(--gold-light);
+    }
+
+    .description-text {
+        font-family: var(--font-editorial);
+        font-size: 1rem;
+        font-style: italic;
+        color: rgba(255,255,255,0.72);
+        line-height: 2;
+    }
+
+    /* Floating rule under heading */
+    .heading-rule {
+        display: block;
+        width: 40px;
+        height: 2px;
+        background: var(--gold-gradient);
+        margin-bottom: 22px;
+        transform-origin: left;
+        transform: scaleX(0);
+        transition: transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.4s;
+    }
+    .text-block.visible .heading-rule { transform: scaleX(1); }
+
+    .featured-image-frame {
+        position: relative;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    .featured-image-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transform: scale(1.08);
+        transition: transform 1.4s cubic-bezier(0.16,1,0.3,1);
+        filter: saturate(0.85);
+    }
+
+    .featured-image-frame.visible img {
+        transform: scale(1);
+        filter: saturate(1);
+    }
+
+    /* Gold corner accent */
+    .featured-image-frame::after {
+        content: '';
+        position: absolute;
+        bottom: 0; right: 0;
+        width: 80px; height: 80px;
+        background: var(--gold);
+        opacity: 0.18;
+        transform: translate(30px, 30px) scale(0);
+        transition: transform 1s ease 0.6s;
+    }
+
+    .featured-image-frame.visible::after {
+        transform: translate(0, 0) scale(1);
+    }
+
+    /* ── EXAMS SECTION ── */
+    .exams-section {
+        padding: 110px 6%;
+        background: var(--ash);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .center-title {
+        font-family: var(--font-display);
+        font-size: clamp(1.9rem, 3vw, 2.8rem);
+        font-weight: 700;
+        font-style: italic;
+        color: var(--forest);
+        text-align: center;
+        margin-bottom: 14px;
+        letter-spacing: -0.01em;
+    }
+
+    .center-title::after {
+        content: '';
+        display: block;
+        width: 52px; height: 2px;
+        background: var(--gold-gradient);
+        margin: 14px auto 56px;
+    }
+
+    .flex-container-reversed {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .flex-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Tilt card hover — 3D perspective */
+    .media-box {
+        position: relative;
+        overflow: hidden;
+        perspective: 900px;
+    }
+
+    .media-box img {
+        width: 100%;
+        aspect-ratio: 4/3;
+        object-fit: cover;
+        transform-style: preserve-3d;
+        transition: transform 0.8s cubic-bezier(0.16,1,0.3,1), filter 0.8s ease;
+        filter: saturate(0.85);
+    }
+
+    .media-box:hover img {
+        filter: saturate(1.05);
+    }
+
+    /* JS-driven tilt applied via style attr */
+    .media-box::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(212,175,55,0.12), transparent 60%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .media-box:hover::before { opacity: 1; }
+
+    /* Gold border that slides in */
+    .media-box::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        border: 1px solid var(--gold-border);
+        transform: scale(0.92);
+        opacity: 0;
+        transition: transform 0.6s ease, opacity 0.6s ease;
+        pointer-events: none;
+    }
+
+    .media-box.visible::after {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    .list-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .intro-paragraph, .location-text {
+        font-family: var(--font-editorial);
+        font-size: 1rem;
+        font-style: italic;
+        color: var(--muted);
+        line-height: 2;
+        margin-bottom: 28px;
+    }
+
+    .exam-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        counter-reset: exam;
+    }
+
+    .exam-list .list-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 18px;
+        font-family: var(--font-body);
+        font-size: 0.9rem;
+        color: var(--ink);
+        padding: 18px 20px;
+        background: var(--white);
+        border: 1px solid var(--rule);
+        position: relative;
+        overflow: hidden;
+        transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
+        counter-increment: exam;
+    }
+
+    .exam-list .list-item::before {
+        content: counter(exam, decimal-leading-zero);
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--gold);
+        flex-shrink: 0;
+        line-height: 1;
+    }
+
+    .exam-list .list-item::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0;
+        width: 0; height: 2px;
+        background: var(--gold-gradient);
+        transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .exam-list .list-item:hover {
+        border-color: var(--gold-border);
+        transform: translateX(6px);
+        box-shadow: 0 8px 32px rgba(4,34,17,0.07);
+    }
+
+    .exam-list .list-item:hover::after { width: 100%; }
+
+    /* ── FACILITIES ── */
+    .facilities-section {
+        padding: 110px 6%;
+        background: var(--white);
+    }
+
+    .facilities-bullet-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 4px;
+    }
+
+    .facility-item {
+        font-family: var(--font-body);
+        font-size: 0.9rem;
+        color: var(--muted);
+        padding: 14px 18px 14px 42px;
+        background: var(--ash);
+        border-left: 3px solid var(--gold);
+        position: relative;
+        transition: background 0.3s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .facility-item::before {
+        content: '✦';
+        position: absolute;
+        left: 14px; top: 50%;
+        transform: translateY(-50%);
+        color: var(--gold);
+        font-size: 0.65rem;
+    }
+
+    .facility-item:hover {
+        background: var(--parchment);
+        transform: translateX(5px);
+    }
+
+    /* ── TECH SHOWCASE ── */
+    .tech-showcase {
+        padding: 110px 6%;
+        background: var(--forest);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .tech-showcase::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 55% 65% at 85% 50%, rgba(212,175,55,0.07), transparent 65%);
+        pointer-events: none;
+    }
+
+    .tech-showcase .center-title { color: #fff; }
+
+    .tech-text .body-copy,
+    .tech-text .software-highlight {
+        font-family: var(--font-editorial);
+        font-size: 1rem;
+        font-style: italic;
+        color: rgba(255,255,255,0.72);
+        line-height: 2;
+        margin-bottom: 18px;
+    }
+
+    /* Pulse badge on software highlight */
+    .tech-text .software-highlight {
+        padding: 20px 22px;
+        border: 1px solid rgba(212,175,55,0.25);
+        position: relative;
+        margin-top: 10px;
+    }
+
+    .tech-text .software-highlight::before {
+        content: '';
+        position: absolute;
+        top: -1px; left: 0;
+        width: 52px; height: 2px;
+        background: var(--gold-gradient);
+    }
+
+    /* ── BELIEF / CORE VALUES ── */
+    .belief-statement {
+        padding: 110px 6%;
+        background: var(--ash);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .motto-box {
+        max-width: 860px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 56px 52px;
+        background: var(--white);
+        border: 1px solid var(--rule);
+        position: relative;
+        transition: border-color 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    .motto-box:hover {
+        border-color: var(--gold-border);
+        box-shadow: 0 24px 64px rgba(4,34,17,0.08);
+    }
+
+    /* Corner ornaments */
+    .motto-box::before, .motto-box::after {
+        content: '';
+        position: absolute;
+        width: 28px; height: 28px;
+        border-color: var(--gold);
+        border-style: solid;
+    }
+    .motto-box::before {
+        top: 16px; left: 16px;
+        border-width: 1px 0 0 1px;
+    }
+    .motto-box::after {
+        bottom: 16px; right: 16px;
+        border-width: 0 1px 1px 0;
+    }
+
+    .motto-text {
+        font-family: var(--font-editorial);
+        font-size: 1.15rem;
+        font-style: italic;
+        color: var(--forest);
+        line-height: 2;
+        margin-bottom: 22px;
+    }
+
+    .special-attention-text {
+        font-family: var(--font-body);
+        font-size: 0.88rem;
+        color: var(--muted);
+        line-height: 1.9;
+    }
+
+    /* Decorative leaf / icon */
+    .decorative-icon {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .leaf-graphic {
+        width: 52px;
+        height: auto;
+        margin: 0 auto;
+        opacity: 0.55;
+        animation: floatLeaf 4s ease-in-out infinite;
+    }
+
+    @keyframes floatLeaf {
+        0%, 100% { transform: translateY(0) rotate(-4deg); }
+        50%       { transform: translateY(-10px) rotate(4deg); }
+    }
+
+    /* ── GALLERY — INK REVEAL ── */
+    .sec-gallery-section {
+        padding: 120px 6%;
+        background: var(--forest);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .sec-gallery-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 55% 60% at 20% 30%, rgba(212,175,55,0.07), transparent 65%);
+        pointer-events: none;
+    }
+
+    .sec-gallery-section .center-title { color: #fff; }
+
+    .sec-gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 260px;
+        gap: 14px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .sec-gallery-grid .gallery-item:nth-child(1) { grid-column: span 2; }
+    .sec-gallery-grid .gallery-item:nth-child(5) { grid-column: span 2; }
+
+    .sec-gallery-grid .gallery-item {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .sec-gallery-grid .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(80%) saturate(0.85);
+        transition: transform 0.9s cubic-bezier(0.16,1,0.3,1), filter 0.9s ease;
+        transform-origin: center;
+    }
+
+    .sec-gallery-grid .gallery-item:hover img {
+        transform: scale(1.1);
+        filter: brightness(65%) saturate(1.2);
+    }
+
+    /* Ink-wash caption reveal — sweeps up from bottom */
+    .sec-gallery-grid .gallery-item .ink-caption {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top,
+            rgba(4,34,17,0.96) 0%,
+            rgba(4,34,17,0.55) 50%,
+            transparent 100%
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 24px 22px;
+        transform: translateY(12px);
+        opacity: 0;
+        transition: opacity 0.45s ease, transform 0.55s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .sec-gallery-grid .gallery-item:hover .ink-caption {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .ink-caption .cap-rule {
+        display: block;
+        width: 0;
+        height: 1px;
+        background: var(--gold-gradient);
+        margin-bottom: 10px;
+        transition: width 0.5s ease 0.15s;
+    }
+
+    .sec-gallery-grid .gallery-item:hover .cap-rule { width: 36px; }
+
+    .ink-caption span {
+        font-family: var(--font-body);
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #fff;
+        transform: translateY(8px);
+        transition: transform 0.5s ease 0.1s;
+    }
+
+    .sec-gallery-grid .gallery-item:hover .ink-caption span {
+        transform: translateY(0);
+    }
+
+    /* ── CONTACT SECTION ── */
+    .sec-contact-section {
+        padding: 120px 6%;
+        background: var(--parchment);
+        position: relative;
+    }
+
+    .sec-contact-section::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: var(--gold-gradient);
+        opacity: 0.55;
+    }
+
+    .sec-contact-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+        max-width: 1200px;
+        margin: 0 auto;
+        align-items: start;
+    }
+
+    /* ── LIGHTBOX ── */
+    .sec-lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(2,8,5,0.97);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        animation: lbFadeIn 0.35s ease;
+    }
+
+    @keyframes lbFadeIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    .sec-lightbox.open { display: flex; }
+
+    .sec-lightbox img {
+        max-width: 88vw;
+        max-height: 80vh;
+        object-fit: contain;
+        border: 1px solid rgba(212,175,55,0.3);
+        animation: lbScale 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    @keyframes lbScale {
+        from { transform: scale(0.88); opacity: 0; }
+        to   { transform: scale(1);    opacity: 1; }
+    }
+
+    .sec-lb-caption {
+        font-family: var(--font-body);
+        font-size: 0.78rem;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.5);
+        margin-top: 18px;
+    }
+
+    .sec-lb-close {
+        position: absolute;
+        top: 24px; right: 28px;
+        background: transparent;
+        border: 1px solid rgba(212,175,55,0.35);
+        color: var(--gold);
+        width: 44px; height: 44px;
+        font-size: 1.4rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.3s ease, color 0.3s ease;
+        line-height: 1;
+    }
+
+    .sec-lb-close:hover {
+        background: var(--gold);
+        color: var(--forest);
+    }
+
+    /* Prev / Next inside lightbox */
+    .sec-lb-prev,
+    .sec-lb-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: transparent;
+        border: 1px solid rgba(212,175,55,0.35);
+        color: var(--gold);
+        width: 48px; height: 48px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .sec-lb-prev { left: 24px; }
+    .sec-lb-next { right: 24px; }
+
+    .sec-lb-prev:hover,
+    .sec-lb-next:hover {
+        background: var(--gold);
+        color: var(--forest);
+    }
+
+    /* ── FORM BOX ── */
+    .sec-form-box h2 {
+        font-family: var(--font-display);
+        font-size: clamp(1.8rem, 3vw, 2.6rem);
+        font-weight: 700;
+        font-style: italic;
+        color: var(--forest);
+        margin-bottom: 8px;
+        letter-spacing: -0.01em;
+    }
+
+    .sec-form-box h2::after {
+        content: '';
+        display: block;
+        width: 44px; height: 2px;
+        background: var(--gold-gradient);
+        margin-top: 14px;
+        margin-bottom: 36px;
+    }
+
+    .sec-form-box .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .sec-form-box input,
+    .sec-form-box textarea {
+        width: 100%;
+        padding: 14px 18px;
+        background: var(--ash);
+        border: 1px solid var(--rule);
+        border-radius: 0;
+        font-family: var(--font-body);
+        font-size: 0.875rem;
+        color: var(--ink);
+        outline: none;
+        transition: border-color 0.35s ease, background 0.35s ease;
+        margin-bottom: 16px;
+        -webkit-appearance: none;
+    }
+
+    .sec-form-box input::placeholder,
+    .sec-form-box textarea::placeholder {
+        color: var(--muted);
+        font-size: 0.85rem;
+    }
+
+    .sec-form-box input:focus,
+    .sec-form-box textarea:focus {
+        border-color: var(--gold);
+        background: var(--parchment);
+    }
+
+    .sec-form-box textarea {
+        resize: vertical;
+        min-height: 130px;
+    }
+
+    /* ── SECONDARY PAGE RESPONSIVE ── */
+    @media (max-width: 1024px) {
+        .info-split-section         { grid-template-columns: 1fr; }
+        .featured-image-frame       { height: 400px; }
+        .flex-container,
+        .flex-container-reversed    { grid-template-columns: 1fr; }
+        .sec-contact-container      { grid-template-columns: 1fr; }
+        .sec-gallery-grid           { grid-template-columns: repeat(2, 1fr); }
+        .sec-gallery-grid .gallery-item:nth-child(1),
+        .sec-gallery-grid .gallery-item:nth-child(5) { grid-column: span 1; }
+    }
+
+    @media (max-width: 768px) {
+        .text-block                 { padding: 70px 5%; }
+        .exams-section,
+        .facilities-section,
+        .tech-showcase,
+        .belief-statement,
+        .sec-gallery-section,
+        .sec-contact-section        { padding: 80px 5%; }
+        .sec-gallery-grid           { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+        .motto-box                  { padding: 40px 28px; }
+        .sec-form-box .form-row     { grid-template-columns: 1fr; }
+    }
+    </style>
+</head>
+
+<body>
+
+<!-- ============================================================
+     HEADER / NAV
+============================================================ -->
+<header id="siteHeader">
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.jpeg" alt="Royal Triple Dee Logo">
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="Primary.html">Primary</a></li>
+            <li><a href="Secondary.html">Secondary</a></li>
+            <li><a href="Gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+<li><a href="Result-Checker.html" class="contact-us-btn"><span>Result-Checker</span></a></li>   
+        </ul>
+
+        <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+</header>
+
+<!-- Mobile Sidebar -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">&#10005;</button>
+    <ul class="sidebar-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Primary.html">Primary</a></li>
+        <li><a href="Secondary.html">Secondary</a></li>
+        <li><a href="Gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    <li><a href="Result-Checker.html" class="contact-us-btn sidebar-cta"><span>Result-Checker</span></a></li>
+    </ul>
+</aside>
+
+
+<!-- ============================================================
+     HERO SLIDER
+============================================================ -->
+<section id="rtd-hero">
+    <div class="rtd-track" id="rtdTrack">
+
+        <div class="rtd-slide">
+            <img src="future .jpeg" alt="Secondary School">
+            <div class="rtd-overlay"></div>
+            <div class="rtd-content" id="rtdText0">
+                <div class="hero-overline"><span>Secondary Education</span></div>
+                <h1>
+                    <span class="word">SHAPING</span><br>
+                    <span class="word" style="color:var(--gold-light)">TOMORROW'S</span><br>
+                    <span class="word" style="color:var(--gold-light)">LEADERS</span>
+                </h1>
+            </div>
+        </div>
+
+        <div class="rtd-slide">
+            <img src="commercial.jpeg" alt="Students">
+            <div class="rtd-overlay"></div>
+            <div class="rtd-content" id="rtdText1">
+                <div class="hero-overline"><span>Academic Excellence</span></div>
+                <h1>
+                    <span class="word">IGNITING</span><br>
+                    <span class="word" style="color:var(--gold-light)">MINDS</span><br>
+                    <span class="word" style="color:var(--gold-light)">DAILY</span>
+                </h1>
+            </div>
+        </div>
+
+        <div class="rtd-slide">
+            <img src="building.jpeg" alt="Lab">
+            <div class="rtd-overlay"></div>
+            <div class="rtd-content" id="rtdText2">
+                <div class="hero-overline"><span>Technology &amp; Innovation</span></div>
+                <h1>
+                    <span class="word">BUILT</span><br>
+                    <span class="word" style="color:var(--gold-light)">FOR THE</span><br>
+                    <span class="word" style="color:var(--gold-light)">FUTURE</span>
+                </h1>
+            </div>
+        </div>
+
+    </div>
+
+    <button class="rtd-arrow rtd-prev" id="rtdPrev" aria-label="Previous">&#10094;</button>
+    <button class="rtd-arrow rtd-next" id="rtdNext" aria-label="Next">&#10095;</button>
+
+    <div class="rtd-dots">
+        <span class="rtd-dot on" data-i="0"></span>
+        <span class="rtd-dot"    data-i="1"></span>
+        <span class="rtd-dot"    data-i="2"></span>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     WELCOME SPLIT
+============================================================ -->
+<section class="info-split-section">
+    <article class="text-block reveal-left">
+        <span class="heading-rule"></span>
+        <h2 class="section-heading">WELCOME TO<br><span class="gold-word">SECONDARY</span><br>EDUCATION</h2>
+        <p class="description-text">
+            The institution offers a blend of both Nigerian and British academic programmes designed to give students a well-rounded education that prepares them for the global stage. Our secondary programme focuses on critical thinking, moral excellence, and academic distinction.
+        </p>
+    </article>
+
+    <figure class="featured-image-frame reveal-right">
+        <img src="commercial.jpeg" alt="Secondary School Achievement Display">
+    </figure>
+</section>
+
+
+<!-- ============================================================
+     EXAMINATIONS
+============================================================ -->
+<section class="exams-section">
+    <h2 class="center-title">EXAMINATIONS AVAILABLE</h2>
+    <div class="flex-container-reversed">
+        <figure class="media-box reveal-left">
+            <img src="CLASSROOM.jpeg" alt="Students engaged in study">
+        </figure>
+        <article class="list-content reveal-right">
+            <p class="intro-paragraph">Royal Triple D College is fully accredited and recognized by the appropriate educational authorities. We prepare our students for the highest standards in national and international examinations.</p>
+            <ol class="exam-list">
+                <li class="list-item">Junior Secondary Certificate Exams (BECE, Checkpoint)</li>
+                <li class="list-item">Senior Secondary Certificate Exams (WAEC, NECO)</li>
+            </ol>
+        </article>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     FACILITIES
+============================================================ -->
+<section class="facilities-section">
+    <h2 class="center-title">OUR FACILITIES</h2>
+    <div class="flex-container">
+        <article class="list-content reveal-left">
+            <p class="location-text">The school is situated in a calm and conducive environment ideal for effective learning. We spare no expense ensuring our students have everything they need to excel.</p>
+            <ul class="facilities-bullet-list">
+                <li class="facility-item">A well-equipped multipurpose hall</li>
+                <li class="facility-item">Large, fully air-conditioned classrooms</li>
+                <li class="facility-item">Modern computer labs with high-speed internet access</li>
+                <li class="facility-item">Fully stocked science and biology laboratories</li>
+                <li class="facility-item">Sports courts and recreational facilities</li>
+            </ul>
+        </article>
+        <figure class="media-box reveal-right">
+            <img src="building.jpeg" alt="School campus exterior">
+        </figure>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     TECHNOLOGY
+============================================================ -->
+<section class="tech-showcase">
+    <h2 class="center-title">TECHNOLOGY INTEGRATION</h2>
+    <div class="flex-container-reversed">
+        <figure class="media-box reveal-left">
+            <img src="computer.webp" alt="Advanced computer laboratory">
+        </figure>
+        <article class="tech-text reveal-right">
+            <p class="body-copy">In today's digital age, technology plays a vital role in enhancing teaching and learning experiences. Our secondary school is equipped with the latest tools to keep students ahead of the curve.</p>
+            <p class="software-highlight">We utilize modern classroom management tools such as NETSUPPORT to improve interaction between teachers and students, monitor engagement in real time, and ensure every learner is on track.</p>
+        </article>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     CORE VALUES
+============================================================ -->
+<section class="belief-statement">
+    <h2 class="center-title">OUR CORE VALUES</h2>
+    <div class="motto-box reveal">
+        <p class="motto-text">With a strong foundation in <em>"Faith in God"</em>, we are committed to nurturing disciplined, responsible, and compassionate students who will go on to lead their communities and nation with integrity and excellence.</p>
+        <p class="special-attention-text">We also provide dedicated support and careful attention to students with unique learning needs, ensuring that every child — regardless of their starting point — has the opportunity to grow, thrive, and succeed.</p>
+    </div>
+    <aside class="decorative-icon">
+    </aside>
+</section>
+
+
+<!-- ============================================================
+     GALLERY — CLICKABLE WITH LIGHTBOX
+============================================================ -->
+<section class="sec-gallery-section">
+    <h2 class="center-title">SCHOOL GALLERY</h2>
+
+    <div class="sec-gallery-grid">
+
+        <div class="gallery-item reveal" onclick="secOpenLightbox(0)">
+            <img src="curiosity in action.jpeg" alt="Curiosity in Action">
+            <div class="ink-caption">
+                <span class="cap-rule"></span>
+                <span>Curiosity in Action</span>
+            </div>
+        </div>
+
+        <div class="gallery-item reveal" style="transition-delay:0.1s" onclick="secOpenLightbox(1)">
+            <img src="ART.jpeg" alt="Exploring Art">
+            <div class="ink-caption">
+                <span class="cap-rule"></span>
+                <span>Exploring Art</span>
+            </div>
+        </div>
+
+        <div class="gallery-item reveal" style="transition-delay:0.15s" onclick="secOpenLightbox(2)">
+            <img src="music.jpeg" alt="School Music Program">
+            <div class="ink-caption">
+                <span class="cap-rule"></span>
+                <span>School Music Program</span>
+            </div>
+        </div>
+
+        <div class="gallery-item reveal" style="transition-delay:0.2s" onclick="secOpenLightbox(3)">
+            <img src="secondary nurse.jpeg" alt="Science Lab">
+            <div class="ink-caption">
+                <span class="cap-rule"></span>
+                <span>Students in the Lab</span>
+            </div>
+        </div>
+
+        <div class="gallery-item reveal" style="transition-delay:0.25s" onclick="secOpenLightbox(4)">
+            <img src="interhouse.jpeg" alt="Interhouse Sports">
+            <div class="ink-caption">
+                <span class="cap-rule"></span>
+                <span>Interhouse Sports</span>
+            </div>
+        </div>
+
+        <div class="gallery-item reveal" style="transition-delay:0.3s" onclick="secOpenLightbox(5)">
+            <img src="cultural day.jpeg" alt="Cultural Day">
+            <div class="ink-caption">
+                <span class="cap-rule"></span>
+                <span>Cultural Day</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Lightbox -->
+    <div id="secLightbox" class="sec-lightbox">
+        <button class="sec-lb-close" onclick="secCloseLightbox()">&times;</button>
+        <button class="sec-lb-prev"  onclick="secShiftLightbox(-1)">&#10094;</button>
+        <img id="secLbImage" src="" alt="">
+        <p class="sec-lb-caption" id="secLbCaption"></p>
+        <button class="sec-lb-next"  onclick="secShiftLightbox(1)">&#10095;</button>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     CONTACT + MAP
+============================================================ -->
+<section class="sec-contact-section" id="sec-contact">
+    <div class="sec-contact-container">
+
+        <div class="map-box reveal-left">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.359624866262!2d3.8182648747660677!3d6.47605229351575!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103955ad4696f455%3A0x3df8185adebe0fad!2sRoyal%20Triple%20Dee%20secondary%20school!5e0!3m2!1sen!2sng!4v1774862373242!5m2!1sen!2sng"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <div class="sec-form-box reveal-right">
+            <h2>Contact Us</h2>
+            <div class="form-row">
+                <input type="text"  id="secName"    placeholder="Your Name">
+                <input type="tel"   id="secPhone"   placeholder="Phone">
+            </div>
+            <input  type="email" id="secEmail"   placeholder="Email">
+            <textarea            id="secMessage" placeholder="Message" rows="5"></textarea>
+            <a id="secWhatsappBtn" class="send-btn" target="_blank"
+               href="https://wa.me/2348037159759"
+               style="display:block; text-align:center; text-decoration:none;">
+                <span>SEND MESSAGE</span>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="main-footer" id="footer-main">
+    <div class="footer-container">
+
+        <div class="footer-col logo-col reveal">
+            <img src="logo.jpeg" alt="School Logo" class="footer-logo">
+            <p class="faith-text">Faith in God</p>
+        </div>
+
+        <div class="footer-col reveal" style="transition-delay:0.1s">
+            <h3>Address</h3>
+            <div class="gold-rule"></div>
+            <p><strong>Main Location</strong>3, Triplee Dee Close, Omolola Lawal Street, Ibeju-Lekki, 105101, Lagos</p>
+            <p><strong>Lekki Office</strong>13, Triplee Dee Close</p>
+        </div>
+
+        <div class="footer-col reveal" style="transition-delay:0.2s">
+            <h3>Reach Out To Us</h3>
+            <div class="gold-rule"></div>
+            <p><strong>Nigeria Office</strong>Postal Code: 105101<br>Tel: +2348035239338<br>E-mail: royaltripledee@yahoo.com</p>
+            <p><strong>Lekki Office</strong>Tel: +2349019733420</p>
+        </div>
+
+        <div class="footer-col reveal" style="transition-delay:0.3s">
+            <h3>Quick Links</h3>
+            <div class="gold-rule"></div>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Primary.html">Primary</a></li>
+                <li><a href="Secondary.html">Secondary</a></li>
+                <li><a href="Gallery.html">Gallery</a></li>
+                <li><a href="#sec-contact">Contact Us</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; Copyright 2026 Royal Triple Dee College — All Rights Reserved.</p>
+        <p>Designed by <span class="designer">Divine Kelechukwu Okpara</span> —
+            <a href="https://wa.me/2349019733420" class="social-link">WhatsApp</a> |
+            <a href="https://twitter.com/DivOkpara"  class="social-link">Twitter</a>
+        </p>
+    </div>
+</footer>
+
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+
+/* ── 1. NAVBAR scroll ── */
+(function () {
+    var hdr = document.getElementById('siteHeader');
+    window.addEventListener('scroll', function () {
+        hdr.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+})();
+
+
+/* ── 2. MOBILE SIDEBAR ── */
+(function () {
+    var hamburger = document.getElementById('hamburgerBtn');
+    var sidebar   = document.getElementById('sidebar');
+    var overlay   = document.getElementById('sidebarOverlay');
+    var closeBtn  = document.getElementById('sidebarClose');
+
+    function openSidebar()  {
+        sidebar.classList.add('open');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeSidebar() {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', openSidebar);
+    closeBtn.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+    document.querySelectorAll('.sidebar-links a').forEach(function (l) {
+        l.addEventListener('click', closeSidebar);
+    });
+})();
+
+
+/* ── 3. RTD HERO SLIDER ── */
+(function () {
+    var track    = document.getElementById('rtdTrack');
+    var contents = document.querySelectorAll('#rtd-hero .rtd-content');
+    var dots     = document.querySelectorAll('#rtd-hero .rtd-dot');
+    var prevBtn  = document.getElementById('rtdPrev');
+    var nextBtn  = document.getElementById('rtdNext');
+    var hero     = document.getElementById('rtd-hero');
+
+    var TOTAL = contents.length;
+    var cur   = 0;
+    var busy  = false;
+    var timer = null;
+
+    function goTo(next) {
+        if (busy) return;
+        next = (next + TOTAL) % TOTAL;
+        if (next === cur) return;
+        busy = true;
+        contents[cur].classList.remove('show');
+        dots[cur].classList.remove('on');
+        cur = next;
+        track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+        setTimeout(function () {
+            contents[cur].classList.add('show');
+            dots[cur].classList.add('on');
+            busy = false;
+        }, 520);
+    }
+
+    function startAuto() { clearInterval(timer); timer = setInterval(function () { goTo(cur + 1); }, 5500); }
+    function stopAuto()  { clearInterval(timer); }
+
+    prevBtn.addEventListener('click', function () { goTo(cur - 1); startAuto(); });
+    nextBtn.addEventListener('click', function () { goTo(cur + 1); startAuto(); });
+    dots.forEach(function (d) {
+        d.addEventListener('click', function () { goTo(parseInt(d.dataset.i, 10)); startAuto(); });
+    });
+
+    hero.addEventListener('mouseenter', stopAuto);
+    hero.addEventListener('mouseleave', startAuto);
+
+    var tx = 0;
+    hero.addEventListener('touchstart', function (e) { tx = e.changedTouches[0].clientX; stopAuto(); }, { passive: true });
+    hero.addEventListener('touchend',   function (e) {
+        var d = tx - e.changedTouches[0].clientX;
+        if (Math.abs(d) > 50) goTo(d > 0 ? cur + 1 : cur - 1);
+        startAuto();
+    }, { passive: true });
+
+    track.style.transform = 'translateX(0%)';
+    requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+            contents[0].classList.add('show');
+            dots[0].classList.add('on');
+            startAuto();
+        });
+    });
+})();
+
+
+/* ── 4. MEDIA BOX TILT ── */
+(function () {
+    document.querySelectorAll('.media-box').forEach(function (box) {
+        box.addEventListener('mousemove', function (e) {
+            var rect = box.getBoundingClientRect();
+            var x = (e.clientX - rect.left) / rect.width  - 0.5;
+            var y = (e.clientY - rect.top)  / rect.height - 0.5;
+            var img = box.querySelector('img');
+            if (img) img.style.transform = 'scale(1.04) rotateY(' + (x * 8) + 'deg) rotateX(' + (-y * 6) + 'deg)';
+        });
+        box.addEventListener('mouseleave', function () {
+            var img = box.querySelector('img');
+            if (img) img.style.transform = '';
+        });
+    });
+})();
+
+
+/* ── 5. GALLERY LIGHTBOX ── */
+var secImages = [
+    { src: 'curiosity in action.jpeg', alt: 'Curiosity in Action' },
+    { src: 'ART.jpeg',                 alt: 'Exploring Art' },
+    { src: 'music.jpeg',               alt: 'School Music Program' },
+    { src: 'secondary nurse.jpeg',     alt: 'Students in the Lab' },
+    { src: 'interhouse.jpeg',          alt: 'Interhouse Sports' },
+    { src: 'cultural day.jpeg',        alt: 'Cultural Day' }
+];
+
+var secLbCurrent = 0;
+
+function secOpenLightbox(index) {
+    secLbCurrent = index;
+    secUpdateLightbox();
+    document.getElementById('secLightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function secCloseLightbox() {
+    document.getElementById('secLightbox').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+function secShiftLightbox(dir) {
+    secLbCurrent = (secLbCurrent + dir + secImages.length) % secImages.length;
+    secUpdateLightbox();
+}
+
+function secUpdateLightbox() {
+    var img = document.getElementById('secLbImage');
+    var cap = document.getElementById('secLbCaption');
+    img.style.opacity = '0';
+    img.style.transform = 'scale(0.92)';
+    setTimeout(function () {
+        img.src = secImages[secLbCurrent].src;
+        img.alt = secImages[secLbCurrent].alt;
+        cap.textContent = secImages[secLbCurrent].alt;
+        img.style.transition = 'opacity 0.4s ease, transform 0.45s cubic-bezier(0.16,1,0.3,1)';
+        img.style.opacity = '1';
+        img.style.transform = 'scale(1)';
+    }, 180);
+}
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape')     secCloseLightbox();
+    if (e.key === 'ArrowRight') secShiftLightbox(1);
+    if (e.key === 'ArrowLeft')  secShiftLightbox(-1);
+});
+
+
+/* ── 6. WHATSAPP FORM ── */
+(function () {
+    function updateLink() {
+        var name    = (document.getElementById('secName').value    || '').trim();
+        var phone   = (document.getElementById('secPhone').value   || '').trim();
+        var email   = (document.getElementById('secEmail').value   || '').trim();
+        var message = (document.getElementById('secMessage').value || '').trim();
+        var text =
+            'Hello Royal Triple Dee 👋\n\n' +
+            'Name: '    + (name    || 'Not provided') + '\n' +
+            'Phone: '   + (phone   || 'Not provided') + '\n' +
+            'Email: '   + (email   || 'Not provided') + '\n\n' +
+            'Message:\n' + (message || '(no message)');
+        document.getElementById('secWhatsappBtn').href =
+            'https://wa.me/2348037159759?text=' + encodeURIComponent(text);
+    }
+    ['secName','secPhone','secEmail','secMessage'].forEach(function (id) {
+        document.getElementById(id).addEventListener('input', updateLink);
+    });
+    document.getElementById('secWhatsappBtn').addEventListener('click', function (e) {
+        var name    = (document.getElementById('secName').value    || '').trim();
+        var message = (document.getElementById('secMessage').value || '').trim();
+        if (!name || !message) { e.preventDefault(); alert('Please fill in at least your Name and Message.'); return; }
+        updateLink();
+    });
+})();
+
+
+/* ── 7. SCROLL REVEAL ── */
+(function () {
+    var targets = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .text-block, .featured-image-frame, .media-box');
+    if (!targets.length) return;
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    targets.forEach(function (el) { observer.observe(el); });
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royal-Triple-Dee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500&family=EB+Garamond:ital@1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ============================================================
+     HEADER / NAV
+============================================================ -->
+<header id="siteHeader">
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.jpeg" alt="Royal Triple Dee Logo">
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="Primary.html">Primary</a></li>
+      <li><a href="Secondary.html">Secondary</a></li>
+      <li><a href="Gallery.html">Gallery</a></li>
+      <li><a href="#contact-main">Contact</a></li>
+<li><a href="Result-Checker.html" class="contact-us-btn"><span>Result-Checker</span></a></li>   
+    </ul>
+
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<!-- Mobile Sidebar -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">&#10005;</button>
+  <ul class="sidebar-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="Primary.html">Primary</a></li>
+    <li><a href="Secondary.html">Secondary</a></li>
+    <li><a href="Gallery.html">Gallery</a></li>
+    <li><a href="#contact-main">Contact</a></li>
+    <li><a href="Result-Checker.html" class="contact-us-btn sidebar-cta"><span>Result-Checker</span></a></li>
+  </ul>
+</aside>
+
+
+<!-- ============================================================
+     HERO SLIDER
+============================================================ -->
+<section id="rtd-hero">
+
+  <div class="rtd-track" id="rtdTrack">
+
+    <div class="rtd-slide">
+      <img src="ART.jpeg" alt="Students learning together">
+      <div class="rtd-overlay"></div>
+      <div class="rtd-content" id="rtdText0">
+        <h1>WE LEARN<br><span>TOGETHER</span></h1>
+      </div>
+    </div>
+
+    <div class="rtd-slide">
+      <img src="happykids.jpeg" alt="Happy students">
+      <div class="rtd-overlay"></div>
+      <div class="rtd-content" id="rtdText1">
+        <h1>CREATE<br><span>YOUR OWN MAGIC</span></h1>
+      </div>
+    </div>
+
+    <div class="rtd-slide">
+      <img src="nursery.jpeg" alt="Smiling students">
+      <div class="rtd-overlay"></div>
+      <div class="rtd-content" id="rtdText2">
+        <h1>FROM CRISIS<br><span>TO COURAGE</span></h1>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="rtd-arrow rtd-prev" id="rtdPrev" aria-label="Previous">&#10094;</button>
+  <button class="rtd-arrow rtd-next" id="rtdNext" aria-label="Next">&#10095;</button>
+
+  <div class="rtd-dots">
+    <span class="rtd-dot on"  data-i="0"></span>
+    <span class="rtd-dot"     data-i="1"></span>
+    <span class="rtd-dot"     data-i="2"></span>
+  </div>
+
+</section>
+
+
+<!-- ============================================================
+     WELCOME / HEAD TEACHER MESSAGE
+     FIX: added class "welcome-text-block" to <header> so h1
+     gets its bottom spacing from CSS without relying on ::after
+     margin-bottom (which doesn't affect siblings).
+============================================================ -->
+<section class="welcome-message">
+  <div class="container">
+
+    <div class="message-text reveal-left">
+      <header class="welcome-text-block">
+        <p class="subtitle">WELCOME MESSAGE FROM OUR HEAD TEACHER</p>
+        <h1>Welcome to <br><span>Royal Triple Dee School</span></h1>
+      </header>
+
+      <div class="content">
+        <p>I am delighted to welcome you and appreciate your interest in our school.</p>
+        <p>We are a reputable, God-centered citadel of learning with a team of experienced and dedicated professionals committed to shaping our precious pupils in both academic excellence and strong moral values.</p>
+        <p>We embrace a "Together Everyone Achieves More" approach, creating a caring and friendly environment that supports effective learning and the healthy development of every child.</p>
+        <p>We believe that working in partnership with parents is essential, as their role is invaluable in ensuring that our children feel loved, safe, valued, and empowered to reach their full potential.</p>
+        <p>I look forward to meeting you in the near future—at school events, special assemblies, social occasions, or even during a quick chat in the school lounge.</p>
+        <p>Thank you for visiting our page. We look forward to hearing from you.</p>
+      </div>
+    </div>
+
+    <div class="message-profile reveal-right">
+      <div class="image-wrapper">
+        <img src="Dr mrs lawal.jpeg" alt="Dr. Mrs. Lawal">
+      </div>
+      <h2 class="teacher-name">Dr. Mrs. Lawal</h2>
+      <p style="color:rgba(255,255,255,0.5); font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; margin-top:6px;">Head Teacher</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PERFORMANCE BANNER
+============================================================ -->
+<section class="performance-banner reveal">
+  <div class="banner-overlay">
+    <div class="banner-content">
+      <h2 class="banner-title">
+        OUTSTANDING<br>
+        <span>PERFORMANCE CERTIFICATE</span>
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ACTIVITIES SECTION
+============================================================ -->
+<section class="activities-section">
+  <div style="max-width:1200px;margin:0 auto 52px;">
+    <p class="section-label">School Life</p>
+    <h2 class="section-title">Activities &amp; Schedule</h2>
+  </div>
+  <div class="container activities-section-grid">
+
+    <div class="activity-card reveal">
+      <h3>EXTRA CURRICULA ACTIVITIES</h3>
+      <div class="activity-list">
+        <p>Abacus | Football | French | Art and Craft | Scrabble | Swimming | Stem</p>
+        <p>TECH (ICT) | Diction | Numeracy | Drama | Press Club</p>
+        <p>Mobile Library / Reading Club | Character Building | Home Makers</p>
+        <p>Cub Scout | Red Cross | Poise &amp; Etiquette | Lego Robotics</p>
+        <p>Music (Violin, Guitar, Saxophone, Keyboard, Voice training, etc.)</p>
+      </div>
+    </div>
+
+    <div class="activity-card reveal" style="transition-delay:0.15s">
+      <h3>WEEKLY ACTIVITIES</h3>
+      <ul class="schedule-list">
+        <li><strong>Monday</strong> — General Assembly / News Updates / Junior Elementary Elective</li>
+        <li><strong>Tuesday</strong> — Preschool Assembly / Preschool Elective</li>
+        <li><strong>Wednesday</strong> — Junior Elementary Assembly / Fellowship</li>
+        <li><strong>Thursday</strong> — Senior Elementary Assembly / Senior Elementary Elective</li>
+        <li><strong>Friday</strong> — General Assembly / Sports Activities</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     TEAM SECTION
+============================================================ -->
+<section class="team-section">
+  <div style="max-width:1100px;margin:0 auto 52px;">
+    <p class="section-label">Our People</p>
+    <h2 class="section-title">Meet the Team</h2>
+  </div>
+  <div class="container">
+
+    <div class="team-card reveal">
+      <div class="image-box">
+        <img src="staff.jpeg" alt="School Staff">
+      </div>
+      <div class="team-info">
+        <p class="designation">School Staff</p>
+      </div>
+    </div>
+
+    <div class="team-card reveal" style="transition-delay:0.15s">
+      <div class="image-box">
+        <img src="executives.jpeg" alt="RTDS Executives">
+      </div>
+      <div class="team-info">
+        <p class="designation">RTDS Executives</p>
+      </div>
+    </div>
+
+    <div class="team-card reveal" style="transition-delay:0.28s">
+      <div class="image-box">
+        <img src="Dr mrs lawal.jpeg" alt="Dr. Mrs. Lawal">
+      </div>
+      <div class="team-info">
+        <p class="designation">Director</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     GALLERY SECTION
+============================================================ -->
+<section class="gallery-section">
+  <div style="max-width:1200px;margin:0 auto 52px;">
+    <p class="section-label">Moments</p>
+    <h2 class="section-title">Our Gallery</h2>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="gallery-item reveal" onclick="openLightbox(0)">
+      <img src="ART.jpeg" alt="The Artistic Side of Our Jewels">
+      <div class="overlay-icon"><span>&#128269;</span></div>
+    </div>
+    <div class="gallery-item reveal" style="transition-delay:0.12s" onclick="openLightbox(1)">
+      <img src="cultural day.jpeg" alt="Embracing our different culture">
+      <div class="overlay-icon"><span>&#128269;</span></div>
+    </div>
+    <div class="gallery-item reveal" style="transition-delay:0.24s" onclick="openLightbox(2)">
+      <img src="sportss.jpeg" alt="Students competition">
+      <div class="overlay-icon"><span>&#128269;</span></div>
+    </div>
+  </div>
+
+  <div id="lightbox" class="lightbox-modal">
+    <button class="close-btn" onclick="closeLightbox()">&times;</button>
+    <img class="lightbox-content" id="full-image" src="" alt="">
+    <div id="caption"></div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="main-footer" id="contact-main">
+  <div class="footer-container">
+
+    <div class="footer-col logo-col reveal">
+      <img src="logo.jpeg" alt="School Logo" class="footer-logo">
+      <p class="faith-text">Faith in God</p>
+    </div>
+
+    <div class="footer-col reveal" style="transition-delay:0.1s">
+      <h3>Address</h3>
+      <div class="gold-rule"></div>
+      <p><strong>Main Location</strong>3, Triplee Dee Close, Omolola Lawal Street, Ibeju-Lekki, 105101, Lagos</p>
+      <p><strong>Lekki Office</strong>13, Triplee Dee Close</p>
+    </div>
+
+    <div class="footer-col reveal" style="transition-delay:0.2s">
+      <h3>Reach Out To Us</h3>
+      <div class="gold-rule"></div>
+      <p><strong>Nigeria Office</strong>Postal Code: 105101<br>Tel: +2348035239338<br>E-mail: royaltripledee@yahoo.com</p>
+      <p><strong>Lekki Office</strong>Tel: +2349019733420</p>
+    </div>
+
+    <div class="footer-col reveal" style="transition-delay:0.3s">
+      <h3>Quick Links</h3>
+      <div class="gold-rule"></div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="Gallery.html">Gallery</a></li>
+        <li><a href="#contact-main">Contact Us</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; Copyright 2026 Royal Triple Dee College — All Rights Reserved.</p>
+    <p>Designed by <span class="designer">Divine Kelechukwu Okpara</span> —
+      <a href="https://wa.me/2349019733420" class="social-link">WhatsApp</a> |
+      <a href="https://twitter.com/DivOkpara" class="social-link">Twitter</a>
+    </p>
+  </div>
+</footer>
+
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+
+/* ── 1. NAVBAR scroll ── */
+(function () {
+  var hdr = document.getElementById('siteHeader');
+  window.addEventListener('scroll', function () {
+    hdr.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+})();
+
+
+/* ── 2. MOBILE SIDEBAR ── */
+(function () {
+  var hamburger = document.getElementById('hamburgerBtn');
+  var sidebar   = document.getElementById('sidebar');
+  var overlay   = document.getElementById('sidebarOverlay');
+  var closeBtn  = document.getElementById('sidebarClose');
+
+  function openSidebar()  { sidebar.classList.add('open'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
+
+  hamburger.addEventListener('click', openSidebar);
+  closeBtn.addEventListener('click', closeSidebar);
+  overlay.addEventListener('click', closeSidebar);
+  document.querySelectorAll('.sidebar-links a').forEach(function (l) { l.addEventListener('click', closeSidebar); });
+})();
+
+
+/* ── 3. RTD HERO SLIDER ── */
+(function () {
+  var track    = document.getElementById('rtdTrack');
+  var contents = document.querySelectorAll('#rtd-hero .rtd-content');
+  var dots     = document.querySelectorAll('#rtd-hero .rtd-dot');
+  var prevBtn  = document.getElementById('rtdPrev');
+  var nextBtn  = document.getElementById('rtdNext');
+  var hero     = document.getElementById('rtd-hero');
+
+  var TOTAL = contents.length;
+  var cur   = 0;
+  var busy  = false;
+  var timer = null;
+
+  function goTo(next) {
+    if (busy) return;
+    next = (next + TOTAL) % TOTAL;
+    if (next === cur) return;
+    busy = true;
+    contents[cur].classList.remove('show');
+    dots[cur].classList.remove('on');
+    cur = next;
+    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    setTimeout(function () {
+      contents[cur].classList.add('show');
+      dots[cur].classList.add('on');
+      busy = false;
+    }, 520);
+  }
+
+  function startAuto() { clearInterval(timer); timer = setInterval(function () { goTo(cur + 1); }, 5000); }
+  function stopAuto()  { clearInterval(timer); }
+
+  prevBtn.addEventListener('click', function () { goTo(cur - 1); startAuto(); });
+  nextBtn.addEventListener('click', function () { goTo(cur + 1); startAuto(); });
+  dots.forEach(function (d) { d.addEventListener('click', function () { goTo(parseInt(d.dataset.i, 10)); startAuto(); }); });
+
+  hero.addEventListener('mouseenter', stopAuto);
+  hero.addEventListener('mouseleave', startAuto);
+
+  var tx = 0;
+  hero.addEventListener('touchstart', function (e) { tx = e.changedTouches[0].clientX; stopAuto(); }, { passive: true });
+  hero.addEventListener('touchend',   function (e) { var d = tx - e.changedTouches[0].clientX; if (Math.abs(d) > 50) goTo(d > 0 ? cur + 1 : cur - 1); startAuto(); }, { passive: true });
+
+  track.style.transform = 'translateX(0%)';
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      contents[0].classList.add('show');
+      dots[0].classList.add('on');
+      startAuto();
+    });
+  });
+})();
+
+
+/* ── 4. LIGHTBOX ── */
+var lightboxImages = [
+  { src: 'ART.jpeg',          alt: 'The Artistic Side of Our Jewels' },
+  { src: 'cultural day.jpeg', alt: 'Embracing our different culture' },
+  { src: 'sportss.jpeg',      alt: 'Students competition' }
+];
+
+function openLightbox(index) {
+  var modal = document.getElementById('lightbox');
+  var img   = document.getElementById('full-image');
+  var cap   = document.getElementById('caption');
+  img.src  = lightboxImages[index].src;
+  img.alt  = lightboxImages[index].alt;
+  cap.textContent = lightboxImages[index].alt;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+
+
+/* ── 5. SCROLL REVEAL ── */
+(function () {
+  var targets = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  if (!targets.length) return;
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  targets.forEach(function (el) { observer.observe(el); });
+})();
+
+</script>
+
+</body>
+</html>
